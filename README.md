@@ -6,5 +6,3 @@ We disclose here the code used to process photoacoustic signal artefacts, data h
 
 For the code of the PATTERN-based sampling phase and the code of the 3D reconstruction process, we are happy to share with interested readers the source code that we have written based on matlab. Unfortunately, these are complex and voluminous, and are currently stored in the lab servers, making it difficult to upload them directly to github.
 If any of our readers are interested, please feel free to contact us directly by e-mail using the author information in the article.
-
-Translated with www.DeepL.com/Translator (free version)
