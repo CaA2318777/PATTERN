@@ -1,5 +1,8 @@
 # PATTERN
 
+![PATTERN2](https://github.com/CaA2318777/PATTERN/assets/111333864/13541f08-09d6-498c-b39a-3eebc6881893)
+
+
 This repository is used to store the publicly available code covered in Nature Communications article 'Photoacoustic Tomography with Temporal Encoding Reconstruction (PATTERN) for Cross-Modal Individual Analysis of the Whole Brain'
 
 We disclose here the code used to process photoacoustic signal artefacts, data hand-labeled by human experts, and pre-trained models for mouse HP/AI/BLA.We also make public the code for a spatial transcriptomics analysis process that incorporates PATTERN. You can find the corresponding contents in the two subfolders.
