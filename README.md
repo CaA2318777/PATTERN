@@ -1,7 +1,5 @@
 # PATTERN
-
-![PATTERN2](https://github.com/CaA2318777/PATTERN/assets/111333864/13541f08-09d6-498c-b39a-3eebc6881893)
-
+<img src= "https://github.com/CaA2318777/PATTERN/assets/111333864/13541f08-09d6-498c-b39a-3eebc6881893" width = "30%">
 
 This repository is used to store the publicly available code covered in Nature Communications article 'Photoacoustic Tomography with Temporal Encoding Reconstruction (PATTERN) for Cross-Modal Individual Analysis of the Whole Brain'
 
