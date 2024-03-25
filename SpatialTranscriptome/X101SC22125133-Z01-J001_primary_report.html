@@ -1,0 +1,2696 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+< html>
+<head>
+	<title> 诺禾致源10X Visium空间转录组分析报告 </title>
+	<META NAME="Author" CONTENT="zhangmin@novogene.cn"> 
+	<META NAME="Modified" CONTENT="duanmeilin@novogene.cn"> 
+	<META NAME="Version" CONTENT="20200410"> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<link rel="stylesheet" href="src/css/jquery-ui.css" />
+<link rel="stylesheet" href="src/css/bootstrap-4.3.1.min.css" />
+<link rel="stylesheet" href="src/css/jquery.tocify.css" />
+<link rel="stylesheet" href="src/css/style.css"/>
+<link rel="stylesheet" href="src/css/base.css"/>
+<link rel="stylesheet" href="src/css/gallery.css"/>
+<script src="src/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="src/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="src/js/jquery.tocify.min.js" type="text/javascript"></script>
+<script src="src/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
+<script src="src/js/scrollTop.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+	$(function () {
+
+		var options = {
+
+			selectors: "h2,h3,h4,h5",
+
+			theme: "bootstrap",
+
+			scrollTo: "60"
+
+		};
+
+		var toc = $("#toc").tocify(options).data("toc-tocify");
+
+	});
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+function trans(img_div_id) {
+
+img_div = $("#" + img_div_id)
+
+img = $("#" + img_div_id + " img").first();
+
+if (img_div.hasClass("fullscreen-div")) {
+
+img_div.removeClass("fullscreen-div");
+
+img.removeClass("fullscreen-img");
+
+}
+
+else {
+
+img_div.addClass("fullscreen-div");
+
+img.addClass("fullscreen-img");
+
+}
+
+}
+
+
+
+function filter_display() {
+
+return $(this).css("display") != "none";
+
+}
+
+
+
+function show_default() {
+
+var list_group_id = "#" + $(this).attr("id");
+
+if ($(list_group_id + " a.active").css("display") == "none") {
+
+var list_tab = $(list_group_id + " a.active");
+
+var pan_id = list_tab.attr("href");
+
+$(pan_id).removeClass("active show");
+
+list_tab.removeClass("active");
+
+}
+
+if ($(list_group_id + " a.active").filter(filter_display).length == 0) {
+
+$(list_group_id + " a").filter(filter_display).first().tab("show");
+
+}
+
+}
+
+$.fn.show_default = show_default
+
+
+
+function next(botton_id) {
+
+var present_tab = $("#" + botton_id.replace("_button_next", "_list-tab") + " .active").first();
+
+while (present_tab.next().length == 1) {
+
+if (present_tab.next().css("display") != "none") {
+
+present_tab.next().tab("show");
+
+break;
+
+}
+
+else {
+
+present_tab = present_tab.next();
+
+}
+
+}
+
+
+
+}
+
+function prev(botton_id) {
+
+var present_tab = $("#" + botton_id.replace("_button_prev", "_list-tab") + " .active").first();
+
+while (present_tab.prev().length == 1) {
+
+if (present_tab.prev().css("display") != "none") {
+
+present_tab.prev().tab("show");
+
+break;
+
+}
+
+else {
+
+present_tab = present_tab.prev();
+
+}
+
+}
+
+
+
+
+
+}
+
+
+
+$(document).ready(function () {
+
+$(".form-control").on("keyup", function () {
+
+var value = $(this).val().toLowerCase();
+
+var input_box_id = "#" + $(this).attr("id");
+
+var list_group_id = input_box_id.replace("_InputList", "_list-tab");
+
+$(list_group_id + " a").filter(function () {
+
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+});
+
+$(list_group_id).show_default();
+
+});
+
+$(".list-group").each(show_default);
+
+});
+
+
+
+</script>
+
+</head>
+
+
+<body>
+
+<div id="toc" class="tocify">
+</div>
+
+<div style="position:fixed; top:0; left:0; width:100%; z-index:1000;">
+	<table width="100%" height="50px" border="0" cellpadding="5" cellspacing="0"
+		style="background:#F3F3F3; border-bottom:1px solid #eee;border-top: none;background-image:-moz-linear-gradient(top,#EEEEEE,#FFFFFF); background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#EEEEEE), color-stop(1,#FFFFFF));filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF', GradientType='0')">
+		<tr height="86%">
+			<td width='1%'></td>
+			<td><img src="src/images/logo1.png"></td>
+			<td><div style="margin:5px;border-left:1px solid #DCDCDC;height:30px"></div></td>
+			<td width="20%"></td>
+			<td width="15%"></td>
+			<td width="25%"
+				style="text-align:left;padding:0px;margin:0px;color:black;font-size:14px;font-weight:50;">
+				<!---Tel: 916-252-0068-383
+				<br><a href="mailto:op-rna@novogene.com" target="black"
+				style="text-decoration:none;color:black;font-size:14px;font-weight:50;">Email: inquiry_us@novogene.com<a></td>--->
+				联系电话：400-658-1585
+				<br><a href="mailto:op-scrna@novogene.com" target="black"
+				style="text-decoration:none;color:black;font-size:14px;font-weight:50;">联系邮箱：op-scrna@novogene.com<a></td>				
+			<td width="1%"></td>
+		</tr>
+	</table>
+</div>
+
+
+
+<!--------------------------标题---------------------------------->
+
+<div id="main">
+
+</br><h1> 诺禾致源 10X Visium 空间转录组分析报告</h1></br>
+
+
+<table class="gy">
+<thead><tr><th>合同信息</th><th>合同内容</th></tr></thead>
+<tbody>
+<tr>
+<td>项目编号</td>
+<td>X101SC22125133-Z01-J001</td>
+</tr>
+<tr>
+<td>项目名称</td>
+<td>清华大学8个小鼠脑组织空间转录组测序分析技术服务（委托）合同</td>
+</tr>
+<tr>
+<td>报告时间</td>
+<td>2023-02-10</td>
+</tr>
+<tr>
+<td>报告编号</td>
+<td>X101SC22125133-Z01-J001</td>
+</tr>
+</tbody></table>
+<br/><br/>
+
+<!----------------------------------------实验流程----------------------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img style="height:40px"  align="left" src="src/images/logo.png" /></a> <a name="建库测序流程">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+
+<h2>1 实验流程 </h2>
+<p class="paragraph">10x Genomics Visium<sup>TM</sup>空间转录组是基于完整的组织切片而进行的基因表达的无偏检测。该技术通过对置于载玻片上特定捕获区域内的组织切片进行H&E染色和拍照保留了样本的组织形态学信息，然后通过对同一样本的通透化处理，使得样本的RNA得以释放，与捕获区域内的寡核苷酸探针杂交，使得不同位点（spot）样本被spatial barcode标记。10x Visium空间转录组将基因表达活跃度信息与组织形态学信息结合起来，呈现了组织和基因表达复杂性的新视图。该技术核心在于空间条形码载玻片，技术原理具体展示如下：</p>
+<p class = "center"><img class="center" src="src/images/lib.png" width=650/>
+<p class="premark center">图1.1 Visium空间基因表达技术原理（在6.5 mm X 6.5 mm的区域有将近5000个位点（spot），每个spot上含有数以百万计的空间条形码捕获探针。DNA探针5‘固定在玻片上，包含illumina测序引物序列、spatial barcode、UMI和poly（dT）。每个spot的spatial barcode序列是唯一的，其直径为55微米，可以捕获1~10个细胞的RNA。）</p>
+
+
+<p class="paragraph">10X Visium 空间转录组实验流程从 新鲜组织处理，样品准备，样品检测、组织优化、文库构建、到测序的每一环节都会直接影响下机数据的数量和质量，从而影响后续信息分析的结果。为从源头保证测序数据准确可靠，诺禾致源承诺在数据的所有生产环节都严格把关，从根源上确保高质量数据的产出。10x Genomics Visium™ 空间转录组整体实验流程图如下：</p>
+<p class = "center"><img class="center" src="src/images/lib-pipeline.png" width=500/>
+</p>
+
+<!----------------------------------------1.1	寄送样本需求----------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3 id="pipline">1.1 寄送样本需求</h3>
+<p class="paragraph">样本类型不同，冷冻处理制备方法也存在差异。客户依据样本特性进行了样本冷冻 包埋，具体可参考 10x 官方样本准备建议。客户需要提供冷冻样本的H&E组织形态学信息和RNA完整性检测结果。</p>
+<p class="paragraph">如果客户实在无法提供冷冻样本的H&E组织形态学信息和 RNA 完整性检测结果，那么样本邮寄到公司后，质检不合格的话，需要客户承担一定的费用。而且也会浪费一些时间。所以我们建议客户有条件的话一定要先进行样本的质检。</p>
+<h3 id="pipline">1.2 样本质检</h3>
+<p class="paragraph">对于邮寄的 OCT 组织包埋块，在切片时，进行冰冻切片 H&E 染色，拍照以及收集多个冰冻切片样本进行 RNA 的抽提。满足以下两个前提，才可进行后续实验操作：样本组织形态学信息完整和 RNA 无降解（RIN>=7）。</p>
+<h3 id="pipline">1.3 组织透化</h3>
+<p class="paragraph">组织透化的目的是为了确定感兴趣样本类型的最佳通透化时间，以保证组织样本内RNA的释放，与载玻片上的寡核苷酸探针杂交进行后续反转录合成cDNA。由于不同类型样本的通透化条件存在差异，在进行正式实验之前，推荐利用 10X 官方提供的组织优化试剂盒（Visium Spatial Tissue Optimization Kit）进行样本通透化时间的测试以确定最佳透化时间。组织优化实验流程展示如下：</p>
+<p class="center"><img class="center" src="src/images/zuzhi.png" width=650/>
+<h3 id="pipline">1.4 文库构建</h3>
+<p class="paragraph">文库构建环节包括冰冻切片制备，H&E 染色和拍照，通透化处理，cDNA 合成，cDNA 收集到试管内进行 PCR 扩增，建库一系列实验流程。库检合格后，上机测序。文库构建实验流程展示如下：</p>
+<p class="center"><img class="center" src="src/images/lib-build.png" width=650/>
+<h3 id="pipline">1.5 上机测序</h3>
+<p class="paragraph">10X 空间转录组文库，采用 Illumina Hiseq PE150 或 NovaSeq PE150 测序策略，推荐每个位点（spot）测 50,000-100,000 reads，即每个样本（5000个spots）测 75-100G 数据量。测序深度与样本在载玻片上捕获区域的覆盖面积和样本类型及复杂度有关，适当加大测序数据量可提高基因的检出率。</p>
+</p>
+
+
+
+
+<p class="paragraph">建库使用的Visium芯片信息如下：</p>
+<table class="gy">
+<tr><th>样本名称</th><th>芯片编号（slide）</th><th>捕获区域（area）</th></tr>
+
+	<tr> 
+	<td>Pcdhg12</td><td>V12M15-406</td><td>D1</td>
+	</tr>
+
+	<tr> 
+	<td>PcdhgHem</td><td>V12M15-406</td><td>A1</td>
+	</tr>
+
+	<tr> 
+	<td>cfos123</td><td>V12M15-406</td><td>B1</td>
+	</tr>
+
+	<tr> 
+	<td>cfos456</td><td>V12M15-406</td><td>C1</td>
+	</tr>
+
+</table>
+</p>
+
+
+
+
+<!-------------------------------------------- 信息分析流程 --------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2>2 信息分析流程</h2>
+<p class="paragraph">获得原始测序序列(Sequenced Reads)后，通过如下流程进行生物信息分析。使用 10X 官方发布软件 Space Ranger 将基因表达信息与组织切片的位置信息结合起来，直观地展示细胞分群和细胞亚群在组织切片上的空间分布以及差异基因的空间分布。后续对这些差异基因进行功能富集，从而鉴定亚群的功能特征。除了Space Ranger的分析结果，同时，我们也提供了第三方软件Seurat的基本分析结果。另外，我们还可以根据客户需求提供细胞定义、变异检测、拷贝数分析、配受体分析等个性化分析内容。（*：个性化分析的内容不包含在基本分析的结题报告中，需要个性化分析的客户可另行提出。）</p>
+<p class="center"><img class="center" src="src/images/analysis-pipeline.png" width=400/>
+
+
+<!-------------------------------------------- 原始序列数据 --------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2>3 测序数据质控</h2>
+<h3>3.1 原始测序数据说明</h3>
+<p class="paragraph">高通量测序（如Illumina HiSeq/Nova-seq PE150）下机得到的原始图像文件经Bcl2fastq碱基识别转化为测序读段（Sequenced Reads），以 FASTQ 格式存储。FASTQ 是一种存储碱基序列及碱基质量值的常用文本格式，以 Illumina HiSeq PE150 测序数据为例，双端长度均为150bp，10x 空间转录组文库 read1 的前 28bp 为 spatial barcode 和 UMI 信息，是区分 read2 来自哪个 spot 的重要依据，28bp 后的碱基为非有效数据，read2 均为有效数据。</p>
+<p class="paragraph">Fastq 格式文件中每个 read 由四行描述信息组成，如下所示：</p>
+<div class="bs-docs-qa">
+<p class="seq">
+@ST-E00310:278:HF3GJALXX:5:1101:6745:1924 1:N:0:ACGCTCGA<br />
+TNTAGATCTTAGGCGGTTGGTGTAGGTATCGACACAGGTCTTCATTTTGGCTAATAATGTACCAACGGAAGTCTGACATTCTGACTGTTCTTCTTCCTCTTCTTCCCCATTCTCTGTAGAAAGAGGCAACAACAGCGGCACCATAGATGT<br />
++<br />
+F#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFF:FFFFF:FFFFFFFFFFFFFFFFFFFFF,FFFFFFF<br />
+</div>
+<p class="paragraph">上述文件中第一行以“@”开头，随后为Illumina测序标识符(Sequence Identifiers)和描述文字；第二行是测序片段的碱基序列；第三行以“+”开头，随后为Illumina测序标识符(也可为空)；第四行是测序片段每个碱基相对应的测序质量值，该行中每个字符对应的ASCII值减去33，即为该碱基的测序质量值。</p>
+
+<!----------------------------------------- 测序数据质量评估 -------------------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3>3.2 测序数据质量评估</h3>
+<p class="paragraph">通过测序可以获得海量的数据信息，如何从得到的数据中获取合格的数据是信息分析的基础。因此对下机数据进行质量控制（QC）是数据分析的首项内容。采用fqstate对下机后的数据（raw reads）质量进行基本的统计。原始下机数据根据index，lane或测序的时间不同，统一按照样本名称-1,2,3,4…依次排序命名。通过read1的GC图可以看出read1的非可用数据的GC抖动异常。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_QC_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_QC_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_Pcdhg12-1" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_Pcdhg12-1"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/Pcdhg12-1.QC.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_PcdhgHem-1" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_PcdhgHem-1"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/PcdhgHem-1.QC.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_cfos123-1" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_cfos123-1"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/cfos123-1.QC.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_cfos123-2" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_cfos123-2"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/cfos123-2.QC.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_cfos456-1" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_cfos456-1"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/cfos456-1.QC.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_QC_pane_cfos456-2" 
+	role="tabpanel" aria-labelledby="gallery_figure_QC_list_cfos456-2"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/QC/cfos456-2.QC.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_QC_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_QC_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_QC_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_Pcdhg12-1"
+	data-toggle="list" href="#gallery_figure_QC_pane_Pcdhg12-1" role="tab" aria-controls="Pcdhg12-1">Pcdhg12-1</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_PcdhgHem-1"
+	data-toggle="list" href="#gallery_figure_QC_pane_PcdhgHem-1" role="tab" aria-controls="PcdhgHem-1">PcdhgHem-1</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_cfos123-1"
+	data-toggle="list" href="#gallery_figure_QC_pane_cfos123-1" role="tab" aria-controls="cfos123-1">cfos123-1</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_cfos123-2"
+	data-toggle="list" href="#gallery_figure_QC_pane_cfos123-2" role="tab" aria-controls="cfos123-2">cfos123-2</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_cfos456-1"
+	data-toggle="list" href="#gallery_figure_QC_pane_cfos456-1" role="tab" aria-controls="cfos456-1">cfos456-1</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_QC_list_cfos456-2"
+	data-toggle="list" href="#gallery_figure_QC_pane_cfos456-2" role="tab" aria-controls="cfos456-2">cfos456-2</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+
+<p class="name_fig">图3.1 原始数据质控</p>
+<p class="premark center">左上：数据质量统计分布；右上：碱基含量在测序循环中的分布</p>
+<p class="premark center">左下：测序质量值在测序循环中的分布；右下：测序错误率在测序循环中的分布</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>3.3 测序数据汇总</a></h3>
+<p class="paragraph">数据质量会直接影响后续信息分析的结果。统计原始数据的质量和产出情况，汇总结果如下表所示：</p>
+<table class="gy">
+<tr><th>Sample</th><th>index</th><th>total_reads</th><th>total_bases (G)</th><th>error_rate (%)</th><th>Q20 (%)</th><th>Q30 (%)</th><th>Q30_read2 (%)</th><th>GC (%)</th></tr>
+
+    
+	
+    		<tr><td rowspan=1>Pcdhg12</td><td>Pcdhg12-1</td><td>380701482</td><td rowspan=1>114.2</td><td>0.3</td><td>83.42</td><td>74.36</td><td>89.26</td><td>32.55</td></tr>
+	
+    
+
+    
+	
+    		<tr><td rowspan=1>PcdhgHem</td><td>PcdhgHem-1</td><td>340351596</td><td rowspan=1>102.1</td><td>0.2</td><td>85.02</td><td>76.07</td><td>89.42</td><td>30.40</td></tr>
+	
+    
+
+    
+	
+    		<tr><td rowspan=2>cfos123</td><td>cfos123-1</td><td>110150028</td><td rowspan=2>122.7</td><td>0.3</td><td>83.09</td><td>73.62</td><td>88.12</td><td>33.02</td></tr>
+	
+    
+	
+   		 <tr><td>cfos123-2</td><td>298921427</td><td>0.2</td><td>83.80</td><td>74.78</td><td>89.16</td><td>31.97</td></tr>
+	
+    
+
+    
+	
+    		<tr><td rowspan=2>cfos456</td><td>cfos456-1</td><td>27913162</td><td rowspan=2>104.6</td><td>0.3</td><td>82.84</td><td>73.17</td><td>87.16</td><td>33.34</td></tr>
+	
+    
+	
+   		 <tr><td>cfos456-2</td><td>320720427</td><td>0.2</td><td>84.61</td><td>75.55</td><td>89.13</td><td>31.27</td></tr>
+	
+    
+
+</table>
+<p class="tremark">(1) Sample：样品名称</p>
+<p class="tremark">(2) index：原始数据编号</p>
+<p class="tremark">(3) total_reads：原始数据中的read pairs数</p>
+<p class="tremark">(4) total_bases (G): 原始数据的碱基数</p>
+<p class="tremark">(5) error_rate (%): 原始数据的N碱基占总碱基的百分比</p>
+<p class="tremark">(6) Q20 (%)：Phred数值大于20的碱基占总碱基的百分比</p>
+<p class="tremark">(7) Q30 (%)：Phred数值大于30的碱基占总碱基的百分比</p>
+<p class="tremark">(8) Q30_read2 (%)：Read2测序数据的Q30（空间转录组或单细胞RNAseq的read2用于比对到参考基因组上）</p>
+<p class="tremark">(9) GC (%)：clean reads中G与C占四种碱基的百分比 </p>
+<br>
+
+
+
+
+
+<!-----------------------------------------SpaceRanger-------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2 id="id_order_SpaceRanger">4 数据比对与表达定量 </h2>
+<h3>4.1 数据比对(Space Ranger)</h3>
+<p class="paragraph">Space Ranger是由 10x genomic 公司官方提供的专门用于 Visium 空间转录组数据分析的软件包。Space Ranger 以测序得到的原始数据 fastq 文件和组织切片的 H&E 染色图片为输入数据，进行参考基因组比对、组织检测、基准检测和 barcode/UMI 统计，生成spot-基因表达矩阵。</p>
+<h4>4.1.1 参考基因组比对</h4>
+<p class="paragraph">Space Ranger使用的比对软件是STAR，将reads比对到参考基因组上后，使用GTF文件进行注释，并区分出外显子区、内含子区、基因间区。具体的区分规则为：至少50% 比对到外显子上reads记为外显子区、将比对到非外显子区且与内含子区有交集的reads记为内含子区、除此之外均为基因间区。</p>
+<p class="paragraph">基于Space Ranger进行基本的数据分析，主要结果包括：组织切片覆盖的spot数目统计、检测到的基因数目统计、测序数据的产出和质量统计、参考基因组比对情况等。该项目每个样本的统计结果如下：</p>
+<table class="gy">
+<tr><th>样本名称</th><th>数据统计</th></tr>
+
+	<tr> 
+	<td>Pcdhg12</td><td><a href="src/pictures/SpaceRanger/Pcdhg12.web_summary.html" title="点击打开" target="_blank">web_summary.html</a></b></span></td>
+	</tr>
+
+	<tr> 
+	<td>PcdhgHem</td><td><a href="src/pictures/SpaceRanger/PcdhgHem.web_summary.html" title="点击打开" target="_blank">web_summary.html</a></b></span></td>
+	</tr>
+
+	<tr> 
+	<td>cfos123</td><td><a href="src/pictures/SpaceRanger/cfos123.web_summary.html" title="点击打开" target="_blank">web_summary.html</a></b></span></td>
+	</tr>
+
+	<tr> 
+	<td>cfos456</td><td><a href="src/pictures/SpaceRanger/cfos456.web_summary.html" title="点击打开" target="_blank">web_summary.html</a></b></span></td>
+	</tr>
+
+</table>
+</p>
+
+<h4>4.1.2 图像处理</h4>
+<p class="paragraph">Space Ranger检测与组织切片覆盖的spots，只有与组织切片覆盖的spots相对应的barcode被用于下游的分析。Space Ranger依靠图像处理算法来解决有关组织切片图像的两个关键问题：确定组织的放置位置以及对齐基准点图案。组织检测用来识别哪些捕获点，从而识别哪些barcodes将用于分析。进行基准校正，以便Space Ranger可以知道每个barcode-斑点在图像中的位置，因为在对Visium捕获区域进行成像时，每个用户的设置会稍有不同。</p>
+<p class="paragraph">Space Ranger首先从组织切片图片上提取看起来像基准点的特征，然后努力将这些可能的基准点比对到已知的基准点图案。从图像中提取的基准点有可能会丢失一些信息，比如被组织覆盖的的区域，也有可能存在一些假阳性，比如由于组织碎片或者残渣被识别为基准点。基准点对齐的输出是将Visium条形码斑点图案与用户的组织图像相关联的坐标变换。</p>
+<p class="paragraph">Visium玻片上的每个区域都包含4,992个捕获点。实际上，这些点中只有部分被组织覆盖。为了将Space Ranger的分析限制在仅放置组织的那些点，Space Ranger使用一种算法来识别明场图像中的组织。使用输入图像的灰度值，多次采样，可以计算并比较组织切片放置的多个估计值。这些估计值用于训练统计分类器，以将捕获区域内的每个像素标记为组织或背景。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_tissue_lowres_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_tissue_lowres_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_Pcdhg12_HE_Staining" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_Pcdhg12_HE_Staining"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.tissue_lowres_image.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_Pcdhg12_tissue_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_Pcdhg12_tissue_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.tissue.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_PcdhgHem_HE_Staining" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_PcdhgHem_HE_Staining"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.tissue_lowres_image.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_PcdhgHem_tissue_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_PcdhgHem_tissue_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.tissue.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_cfos123_HE_Staining" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_cfos123_HE_Staining"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.tissue_lowres_image.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_cfos123_tissue_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_cfos123_tissue_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.tissue.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_cfos456_HE_Staining" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_cfos456_HE_Staining"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.tissue_lowres_image.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissue_lowres_pane_cfos456_tissue_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissue_lowres_list_cfos456_tissue_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.tissue.Spatial.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_tissue_lowres_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_tissue_lowres_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_tissue_lowres_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_Pcdhg12_HE_Staining"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_Pcdhg12_HE_Staining" role="tab" aria-controls="Pcdhg12_HE_Staining">Pcdhg12_HE_Staining</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_Pcdhg12_tissue_Spatial"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_Pcdhg12_tissue_Spatial" role="tab" aria-controls="Pcdhg12_tissue_Spatial">Pcdhg12_tissue_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_PcdhgHem_HE_Staining"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_PcdhgHem_HE_Staining" role="tab" aria-controls="PcdhgHem_HE_Staining">PcdhgHem_HE_Staining</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_PcdhgHem_tissue_Spatial"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_PcdhgHem_tissue_Spatial" role="tab" aria-controls="PcdhgHem_tissue_Spatial">PcdhgHem_tissue_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_cfos123_HE_Staining"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_cfos123_HE_Staining" role="tab" aria-controls="cfos123_HE_Staining">cfos123_HE_Staining</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_cfos123_tissue_Spatial"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_cfos123_tissue_Spatial" role="tab" aria-controls="cfos123_tissue_Spatial">cfos123_tissue_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_cfos456_HE_Staining"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_cfos456_HE_Staining" role="tab" aria-controls="cfos456_HE_Staining">cfos456_HE_Staining</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissue_lowres_list_cfos456_tissue_Spatial"
+	data-toggle="list" href="#gallery_tissue_lowres_pane_cfos456_tissue_Spatial" role="tab" aria-controls="cfos456_tissue_Spatial">cfos456_tissue_Spatial</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 4.1 图像比对及组织样本检测</p>
+<p class="premark center">HE_Staining：组织切片H&E染色图，tissue_Spatial：组织检出空间分布图</p>
+
+
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3>4.2 表达定量</h3>
+<p class="paragraph">我们使用SpaceRanger软件统计每个spot上基因的UMI，得到样本的spot-基因表达矩阵，对数据进行基本质控，下图展示了UMI/Gene个数在组织空间上的分布。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_tissueSpatial_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_tissueSpatial_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_Pcdhg12_UMI_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_Pcdhg12_UMI_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.UMI.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_Pcdhg12_Gene_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_Pcdhg12_Gene_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.Gene.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_PcdhgHem_UMI_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_PcdhgHem_UMI_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.UMI.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_PcdhgHem_Gene_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_PcdhgHem_Gene_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.Gene.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_cfos123_UMI_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_cfos123_UMI_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.UMI.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_cfos123_Gene_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_cfos123_Gene_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.Gene.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_cfos456_UMI_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_cfos456_UMI_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.UMI.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_tissueSpatial_pane_cfos456_Gene_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_tissueSpatial_list_cfos456_Gene_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.Gene.Spatial.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_tissueSpatial_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_tissueSpatial_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_tissueSpatial_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_Pcdhg12_UMI_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_Pcdhg12_UMI_Spatial" role="tab" aria-controls="Pcdhg12_UMI_Spatial">Pcdhg12_UMI_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_Pcdhg12_Gene_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_Pcdhg12_Gene_Spatial" role="tab" aria-controls="Pcdhg12_Gene_Spatial">Pcdhg12_Gene_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_PcdhgHem_UMI_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_PcdhgHem_UMI_Spatial" role="tab" aria-controls="PcdhgHem_UMI_Spatial">PcdhgHem_UMI_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_PcdhgHem_Gene_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_PcdhgHem_Gene_Spatial" role="tab" aria-controls="PcdhgHem_Gene_Spatial">PcdhgHem_Gene_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_cfos123_UMI_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_cfos123_UMI_Spatial" role="tab" aria-controls="cfos123_UMI_Spatial">cfos123_UMI_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_cfos123_Gene_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_cfos123_Gene_Spatial" role="tab" aria-controls="cfos123_Gene_Spatial">cfos123_Gene_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_cfos456_UMI_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_cfos456_UMI_Spatial" role="tab" aria-controls="cfos456_UMI_Spatial">cfos456_UMI_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_tissueSpatial_list_cfos456_Gene_Spatial"
+	data-toggle="list" href="#gallery_tissueSpatial_pane_cfos456_Gene_Spatial" role="tab" aria-controls="cfos456_Gene_Spatial">cfos456_Gene_Spatial</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 4.2 空间spots的基因表达定量</p>
+<p class="premark center">UMI_Spatial：UMI数量空间分布图，Gene_Spatial：基因检出数空间分布图</p>
+
+
+
+
+
+<!-------------------------------------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a >北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2 id="id_order_SpaceRanger2">5 Space Ranger分析</h2>
+<p class="paragraph">使用Spacer Ranger软件可以直接对基因表达矩阵进行下游分析，主要包括PCA降维、聚类分析、t-SNE降维和UMAP降维，诺禾致源在此基础上进行二次分析和绘图展示。主成分分析（PCA，Principal Component Analysis），是一种应用方差分解，对多维数据进行降维，从而提取出数据中最主要结构的方法；t-SNE（t-Stochastic Neighbor Embedding）与UMAP（Uniform Manifold Approximation and Projection）是目前机器学习领域非常流行的对高维度数据进行降维的非线性、非监督降维方法，能最大程度的保留原始数据的特征,同时大幅度的降低特征维数。Space Ranger先采用基于IRLBA算法进行主成分分析，将数据集的维数从(spot x genes)改变为(spot x M，M是主成分数量)，然后采用非线性降维算法t-SNE和UMAP将降维后的数据展示在二维空间中，细胞之间的基因表达模式越相似，在t-SNE或UMAP二维空间中的距离也越接近。对于聚类分析，Spacer Ranger使用以下两种方法完成。</p>
+<h3 id="id_order_SpaceRanger2">5.1 Graphclust聚类分析</h3>
+<p class="paragraph">基于图的聚类算法包括两步：首先用PCA降维的数据构建一个spot间的k近邻稀疏矩阵，即将一个spot与其欧式距离上最近的k个spot聚为一类，然后在此基础上用Louvain算法进行模块优化，旨在找到图中高度连接的模块。最后通过层次聚类将位于同一区域内没有差异表达基因(BH校正后的p值 低于0.05)的cluster进一步融合，重复该过程直到没有clusters可以合并。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_Distribution_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_Distribution_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_Pcdhg12_graphclust_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_Pcdhg12_graphclust_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.graphclust.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_Pcdhg12_graphclust_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_Pcdhg12_graphclust_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.graphclust.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_Pcdhg12_graphclust_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_Pcdhg12_graphclust_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.graphclust.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_PcdhgHem_graphclust_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_PcdhgHem_graphclust_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.graphclust.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_PcdhgHem_graphclust_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_PcdhgHem_graphclust_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.graphclust.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_PcdhgHem_graphclust_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_PcdhgHem_graphclust_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.graphclust.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos123_graphclust_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos123_graphclust_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.graphclust.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos123_graphclust_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos123_graphclust_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.graphclust.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos123_graphclust_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos123_graphclust_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.graphclust.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos456_graphclust_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos456_graphclust_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.graphclust.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos456_graphclust_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos456_graphclust_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.graphclust.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Distribution_pane_cfos456_graphclust_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Distribution_list_cfos456_graphclust_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.graphclust.cluster.UMAP.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_Distribution_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_Distribution_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_Distribution_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_Pcdhg12_graphclust_Spatial"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_Pcdhg12_graphclust_Spatial" role="tab" aria-controls="Pcdhg12_graphclust_Spatial">Pcdhg12_graphclust_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_Pcdhg12_graphclust_tSNE"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_Pcdhg12_graphclust_tSNE" role="tab" aria-controls="Pcdhg12_graphclust_tSNE">Pcdhg12_graphclust_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_Pcdhg12_graphclust_UMAP"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_Pcdhg12_graphclust_UMAP" role="tab" aria-controls="Pcdhg12_graphclust_UMAP">Pcdhg12_graphclust_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_PcdhgHem_graphclust_Spatial"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_PcdhgHem_graphclust_Spatial" role="tab" aria-controls="PcdhgHem_graphclust_Spatial">PcdhgHem_graphclust_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_PcdhgHem_graphclust_tSNE"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_PcdhgHem_graphclust_tSNE" role="tab" aria-controls="PcdhgHem_graphclust_tSNE">PcdhgHem_graphclust_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_PcdhgHem_graphclust_UMAP"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_PcdhgHem_graphclust_UMAP" role="tab" aria-controls="PcdhgHem_graphclust_UMAP">PcdhgHem_graphclust_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos123_graphclust_Spatial"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos123_graphclust_Spatial" role="tab" aria-controls="cfos123_graphclust_Spatial">cfos123_graphclust_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos123_graphclust_tSNE"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos123_graphclust_tSNE" role="tab" aria-controls="cfos123_graphclust_tSNE">cfos123_graphclust_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos123_graphclust_UMAP"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos123_graphclust_UMAP" role="tab" aria-controls="cfos123_graphclust_UMAP">cfos123_graphclust_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos456_graphclust_Spatial"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos456_graphclust_Spatial" role="tab" aria-controls="cfos456_graphclust_Spatial">cfos456_graphclust_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos456_graphclust_tSNE"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos456_graphclust_tSNE" role="tab" aria-controls="cfos456_graphclust_tSNE">cfos456_graphclust_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Distribution_list_cfos456_graphclust_UMAP"
+	data-toggle="list" href="#gallery_figure_Distribution_pane_cfos456_graphclust_UMAP" role="tab" aria-controls="cfos456_graphclust_UMAP">cfos456_graphclust_UMAP</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+
+<p class="name_fig">图 5.1 Graph-based 分类结果展示</p>
+<p class="premark center">graphclust_Spatial：cluster的空间分布图，graphclust_tSNE：cluster的t-SNE二维空间展示图，graphclust_UMAP：cluster的UMAP二维空间展示图</p>
+
+
+
+<!-------------------------------------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="GO分类">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>5.2 kmeans聚类分析</a></h3>
+<p class="paragraph">K-Means算法随机在PCA降维的空间中适当选取k个聚类质心点，对于每一个spot计算其应该属于的cluster，然后对于每一个cluster重新计算该cluster的质心，重复该过程直到收敛。注意这里的k是事先给定的亚群数目（与基于图的聚类算法的k意义不同），质心代表对属于同一个cluster的spot中心点的估计。我们提供了9中不同k值（k取2至10）的聚类结果，详细结果如下。</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	
+	<div id="gallery_figure_kmeansSpatial_button_prev" class="button_prev" onclick="prev(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_prev">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-6">
+        <div class="tab-content" id="gallery_figure_kmeansSpatial_nav-tabContent">
+        
+        <div class="tab-pane fade" id="gallery_figure_kmeansSpatial_pane_Pcdhg12_kmeans_Spatial"
+        role="tabpanel" aria-labelledby="gallery_figure_kmeansSpatial_list_Pcdhg12_kmeans_Spatial"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.kmeans.cluster.Spatial.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_kmeansSpatial_pane_PcdhgHem_kmeans_Spatial"
+        role="tabpanel" aria-labelledby="gallery_figure_kmeansSpatial_list_PcdhgHem_kmeans_Spatial"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.kmeans.cluster.Spatial.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_kmeansSpatial_pane_cfos123_kmeans_Spatial"
+        role="tabpanel" aria-labelledby="gallery_figure_kmeansSpatial_list_cfos123_kmeans_Spatial"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.kmeans.cluster.Spatial.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_kmeansSpatial_pane_cfos456_kmeans_Spatial"
+        role="tabpanel" aria-labelledby="gallery_figure_kmeansSpatial_list_cfos456_kmeans_Spatial"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.kmeans.cluster.Spatial.png" /></div>
+        
+        </div></div>
+        <div class="col-1">
+        <div id="gallery_figure_kmeansSpatial_button_next" class="button_next" onclick="next(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_next">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-4">
+        <input class="form-control" id="gallery_figure_kmeansSpatial_InputList" type="text" placeholder="Search..">
+        <div class="list-group" id="gallery_figure_kmeansSpatial_list-tab" role="tablist">
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansSpatial_list_Pcdhg12_kmeans_Spatial"
+        data-toggle="list" href="#gallery_figure_kmeansSpatial_pane_Pcdhg12_kmeans_Spatial" role="tab" aria-controls="Pcdhg12_kmeans_Spatial">Pcdhg12_kmeans_Spatial</a>
+	
+        <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansSpatial_list_PcdhgHem_kmeans_Spatial"
+        data-toggle="list" href="#gallery_figure_kmeansSpatial_pane_PcdhgHem_kmeans_Spatial" role="tab" aria-controls="PcdhgHem_kmeans_Spatial">PcdhgHem_kmeans_Spatial</a>
+	
+        <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansSpatial_list_cfos123_kmeans_Spatial"
+        data-toggle="list" href="#gallery_figure_kmeansSpatial_pane_cfos123_kmeans_Spatial" role="tab" aria-controls="cfos123_kmeans_Spatial">cfos123_kmeans_Spatial</a>
+	
+        <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansSpatial_list_cfos456_kmeans_Spatial"
+        data-toggle="list" href="#gallery_figure_kmeansSpatial_pane_cfos456_kmeans_Spatial" role="tab" aria-controls="cfos456_kmeans_Spatial">cfos456_kmeans_Spatial</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+        <p class="name_fig">图 5.2 K-Means（2-10）分类的空间分布展示</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_kmeansumap_button_prev" class="button_prev" onclick="prev(this.id)">
+  <svg viewbox="0 0 16000 16000" class="svg_prev">
+  <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+  <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+  </polygon></svg></div></div>
+  <div class="col-6">
+  <div class="tab-content" id="gallery_figure_kmeansumap_nav-tabContent">
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_Pcdhg12_kmeans_tSNE"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_Pcdhg12_kmeans_tSNE"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.kmeans.cluster.tSNE.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_Pcdhg12_kmeans_UMAP"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_Pcdhg12_kmeans_UMAP"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/Pcdhg12.kmeans.cluster.UMAP.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_PcdhgHem_kmeans_tSNE"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_PcdhgHem_kmeans_tSNE"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.kmeans.cluster.tSNE.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_PcdhgHem_kmeans_UMAP"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_PcdhgHem_kmeans_UMAP"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/PcdhgHem.kmeans.cluster.UMAP.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_cfos123_kmeans_tSNE"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_cfos123_kmeans_tSNE"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.kmeans.cluster.tSNE.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_cfos123_kmeans_UMAP"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_cfos123_kmeans_UMAP"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos123.kmeans.cluster.UMAP.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_cfos456_kmeans_tSNE"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_cfos456_kmeans_tSNE"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.kmeans.cluster.tSNE.png" /></div>
+  
+  <div class="tab-pane fade" id="gallery_figure_kmeansumap_pane_cfos456_kmeans_UMAP"
+  role="tabpanel" aria-labelledby="gallery_figure_kmeansumap_list_cfos456_kmeans_UMAP"
+  onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/SpaceRanger/cfos456.kmeans.cluster.UMAP.png" /></div>
+  
+  </div></div>
+  <div class="col-1">
+  <div id="gallery_figure_kmeansumap_button_next" class="button_next" onclick="next(this.id)">
+  <svg viewbox="0 0 16000 16000" class="svg_next">
+  <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+  <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+  </polygon></svg></div></div>
+  <div class="col-4">
+  <input class="form-control" id="gallery_figure_kmeansumap_InputList" type="text" placeholder="Search..">
+  <div class="list-group" id="gallery_figure_kmeansumap_list-tab" role="tablist">
+  
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_Pcdhg12_kmeans_tSNE"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_Pcdhg12_kmeans_tSNE" role="tab" aria-controls="Pcdhg12_kmeans_tSNE">Pcdhg12_kmeans_tSNE</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_Pcdhg12_kmeans_UMAP"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_Pcdhg12_kmeans_UMAP" role="tab" aria-controls="Pcdhg12_kmeans_UMAP">Pcdhg12_kmeans_UMAP</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_PcdhgHem_kmeans_tSNE"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_PcdhgHem_kmeans_tSNE" role="tab" aria-controls="PcdhgHem_kmeans_tSNE">PcdhgHem_kmeans_tSNE</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_PcdhgHem_kmeans_UMAP"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_PcdhgHem_kmeans_UMAP" role="tab" aria-controls="PcdhgHem_kmeans_UMAP">PcdhgHem_kmeans_UMAP</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_cfos123_kmeans_tSNE"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_cfos123_kmeans_tSNE" role="tab" aria-controls="cfos123_kmeans_tSNE">cfos123_kmeans_tSNE</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_cfos123_kmeans_UMAP"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_cfos123_kmeans_UMAP" role="tab" aria-controls="cfos123_kmeans_UMAP">cfos123_kmeans_UMAP</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_cfos456_kmeans_tSNE"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_cfos456_kmeans_tSNE" role="tab" aria-controls="cfos456_kmeans_tSNE">cfos456_kmeans_tSNE</a>
+	
+  <a class="list-group-item list-group-item-action" id="gallery_figure_kmeansumap_list_cfos456_kmeans_UMAP"
+  data-toggle="list" href="#gallery_figure_kmeansumap_pane_cfos456_kmeans_UMAP" role="tab" aria-controls="cfos456_kmeans_UMAP">cfos456_kmeans_UMAP</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+
+<p class="name_fig">图 5.3 kmeans（2-10）分类的tSNE分布、UMAP二维空间展示</p>
+<p class="premark center">kmeans_tSNE：cluster的t-SNE二维空间展示图，kmeans_UMAP：cluster的UMAP二维空间展示图</p>
+
+
+
+
+
+
+<!---------------------------------------- Seurat ------------------------------------>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2 id="id_order_cds">6 Seurat分析</h2>
+<p class="paragraph">Seurat是使用频率较高的进行10x空间转录组或单细胞转录组分析的第三方工具。我们基于Seurat软件包进行二次开发，对spot水平的基因表达矩阵，完成以下分析步骤：(1) 对数据进行质控并去除可能会干扰下游分析的低质量spot；(2) 对数据进行标准化处理，以消除捕获大小的偏好；(3) 进行特征选择，筛选表达差异较大的基因进行下游分析；(4) 采用主成分分析方法对数据进行降维；(5) 使用graph-based算法，对spot进行聚类分析；(6) 使用t-SNE和UMAP算法，对分类结果进行降维展示；(7) 筛选空间差异分布基因。</p>
+
+<h3><a>6.1 数据过滤</a></h3>
+<p class="paragraph">得到SpaceRanger生成的基因表达矩阵之后，我们会根据基因检出数，对数据进行再次过滤，去除异常值，以保证后续分析结果的可靠性和准确性。
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_FilterCells_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_FilterCells_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_Pcdhg12_MT_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_Pcdhg12_MT_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.percent_MT.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_Pcdhg12_Filter_Stat" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_Pcdhg12_Filter_Stat"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.FilterCells.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_Pcdhg12_Filter_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_Pcdhg12_Filter_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.FilterCells.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_PcdhgHem_MT_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_PcdhgHem_MT_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.percent_MT.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_PcdhgHem_Filter_Stat" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_PcdhgHem_Filter_Stat"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.FilterCells.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_PcdhgHem_Filter_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_PcdhgHem_Filter_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.FilterCells.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos123_MT_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos123_MT_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.percent_MT.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos123_Filter_Stat" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos123_Filter_Stat"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.FilterCells.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos123_Filter_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos123_Filter_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.FilterCells.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos456_MT_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos456_MT_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.percent_MT.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos456_Filter_Stat" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos456_Filter_Stat"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.FilterCells.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_FilterCells_pane_cfos456_Filter_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_FilterCells_list_cfos456_Filter_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.FilterCells.Spatial.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_FilterCells_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_FilterCells_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_FilterCells_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_Pcdhg12_MT_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_Pcdhg12_MT_Spatial" role="tab" aria-controls="Pcdhg12_MT_Spatial">Pcdhg12_MT_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_Pcdhg12_Filter_Stat"
+	data-toggle="list" href="#gallery_FilterCells_pane_Pcdhg12_Filter_Stat" role="tab" aria-controls="Pcdhg12_Filter_Stat">Pcdhg12_Filter_Stat</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_Pcdhg12_Filter_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_Pcdhg12_Filter_Spatial" role="tab" aria-controls="Pcdhg12_Filter_Spatial">Pcdhg12_Filter_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_PcdhgHem_MT_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_PcdhgHem_MT_Spatial" role="tab" aria-controls="PcdhgHem_MT_Spatial">PcdhgHem_MT_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_PcdhgHem_Filter_Stat"
+	data-toggle="list" href="#gallery_FilterCells_pane_PcdhgHem_Filter_Stat" role="tab" aria-controls="PcdhgHem_Filter_Stat">PcdhgHem_Filter_Stat</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_PcdhgHem_Filter_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_PcdhgHem_Filter_Spatial" role="tab" aria-controls="PcdhgHem_Filter_Spatial">PcdhgHem_Filter_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos123_MT_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos123_MT_Spatial" role="tab" aria-controls="cfos123_MT_Spatial">cfos123_MT_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos123_Filter_Stat"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos123_Filter_Stat" role="tab" aria-controls="cfos123_Filter_Stat">cfos123_Filter_Stat</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos123_Filter_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos123_Filter_Spatial" role="tab" aria-controls="cfos123_Filter_Spatial">cfos123_Filter_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos456_MT_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos456_MT_Spatial" role="tab" aria-controls="cfos456_MT_Spatial">cfos456_MT_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos456_Filter_Stat"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos456_Filter_Stat" role="tab" aria-controls="cfos456_Filter_Stat">cfos456_Filter_Stat</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_FilterCells_list_cfos456_Filter_Spatial"
+	data-toggle="list" href="#gallery_FilterCells_pane_cfos456_Filter_Spatial" role="tab" aria-controls="cfos456_Filter_Spatial">cfos456_Filter_Spatial</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 6.1 根据基因检出数，线粒体基因占比过滤spot</p>
+<p class="premark center">MT_Spatial：线粒体基因占比空间分布图，Filter_Stat：不同条件过滤spot分布图，Filter_Spatial：spot筛选空间分布图</p>
+<p class="premark center">不同条件过滤spot分布图：各图的横坐标分别是各过滤指标统计，纵坐标是spot数量，蓝色的线条代表过滤的阈值，灰色的代表被过滤的spot</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>6.2 筛选高变异基因</a></h3>
+<p class="paragraph">Seurat采用sctransform（SCT）算法进行数据标准化处理，然后通过vst算法筛选出在整个数据中表达变化最大的基因集，作为高度变异基因（high-variance genes，HVGs）。下图中标红色的点代表高度变异的基因，共3000个。筛选得到的高变异基因用于主成分分析以及下游分析。</p>
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_FPKM_Density_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_FPKM_Density_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Density_pane_Pcdhg12" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Density_list_Pcdhg12"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.VariableFeatures.volcano.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Density_pane_PcdhgHem" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Density_list_PcdhgHem"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.VariableFeatures.volcano.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Density_pane_cfos123" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Density_list_cfos123"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.VariableFeatures.volcano.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Density_pane_cfos456" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Density_list_cfos456"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.VariableFeatures.volcano.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_FPKM_Density_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_FPKM_Density_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_FPKM_Density_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Density_list_Pcdhg12"
+	data-toggle="list" href="#gallery_figure_FPKM_Density_pane_Pcdhg12" role="tab" aria-controls="Pcdhg12">Pcdhg12</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Density_list_PcdhgHem"
+	data-toggle="list" href="#gallery_figure_FPKM_Density_pane_PcdhgHem" role="tab" aria-controls="PcdhgHem">PcdhgHem</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Density_list_cfos123"
+	data-toggle="list" href="#gallery_figure_FPKM_Density_pane_cfos123" role="tab" aria-controls="cfos123">cfos123</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Density_list_cfos456"
+	data-toggle="list" href="#gallery_figure_FPKM_Density_pane_cfos456" role="tab" aria-controls="cfos456">cfos456</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 6.2 高度变异基因火山图</p>
+<p class="premark center">横坐标是基因表达量的几何平均值，纵坐标是变异/方差统计量，并标记了top10的高度变异基因</p>
+
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>6.3 PCA分析</a></h3>
+<p class="paragraph">Seurat 在进行 PCA 分析时，可以对主成分的标准差进行统计,从而选取合适的主成分数目。</p>
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_FPKM_Distribution_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_FPKM_Distribution_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Distribution_pane_Pcdhg12_PCA_sdev" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Distribution_list_Pcdhg12_PCA_sdev"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.PCA.sdev_fitted.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Distribution_pane_PcdhgHem_PCA_sdev" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Distribution_list_PcdhgHem_PCA_sdev"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.PCA.sdev_fitted.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Distribution_pane_cfos123_PCA_sdev" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Distribution_list_cfos123_PCA_sdev"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.PCA.sdev_fitted.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_FPKM_Distribution_pane_cfos456_PCA_sdev" 
+	role="tabpanel" aria-labelledby="gallery_figure_FPKM_Distribution_list_cfos456_PCA_sdev"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.PCA.sdev_fitted.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_FPKM_Distribution_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_FPKM_Distribution_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_FPKM_Distribution_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Distribution_list_Pcdhg12_PCA_sdev"
+	data-toggle="list" href="#gallery_figure_FPKM_Distribution_pane_Pcdhg12_PCA_sdev" role="tab" aria-controls="Pcdhg12_PCA_sdev">Pcdhg12_PCA_sdev</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Distribution_list_PcdhgHem_PCA_sdev"
+	data-toggle="list" href="#gallery_figure_FPKM_Distribution_pane_PcdhgHem_PCA_sdev" role="tab" aria-controls="PcdhgHem_PCA_sdev">PcdhgHem_PCA_sdev</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Distribution_list_cfos123_PCA_sdev"
+	data-toggle="list" href="#gallery_figure_FPKM_Distribution_pane_cfos123_PCA_sdev" role="tab" aria-controls="cfos123_PCA_sdev">cfos123_PCA_sdev</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_FPKM_Distribution_list_cfos456_PCA_sdev"
+	data-toggle="list" href="#gallery_figure_FPKM_Distribution_pane_cfos456_PCA_sdev" role="tab" aria-controls="cfos456_PCA_sdev">cfos456_PCA_sdev</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 6.3 PCA分析展示</p>
+<p class="premark center">PCA_sdev：各主成分标准差统计展示，横坐标是主成分，纵坐标是标准差</p>
+
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>6.4 聚类和降维分析</a></h3>
+<p class="paragraph">Seurat采用Graph-based方法进行聚类分析，算法与Space Ranger类似，聚类的结果以组织切片以及t-SNE和UMAP降维展示。</p>
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_UniformDistribution_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_UniformDistribution_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos123_cluster_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos123_cluster_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos123_cluster_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos123_cluster_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos123_cluster_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos123_cluster_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.UMAP.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos456_cluster_Spatial" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos456_cluster_Spatial"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.Spatial.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos456_cluster_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos456_cluster_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.tSNE.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_UniformDistribution_pane_cfos456_cluster_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_UniformDistribution_list_cfos456_cluster_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.UMAP.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_UniformDistribution_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_UniformDistribution_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_UniformDistribution_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_Spatial"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_Spatial" role="tab" aria-controls="Pcdhg12_cluster_Spatial">Pcdhg12_cluster_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_tSNE"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_tSNE" role="tab" aria-controls="Pcdhg12_cluster_tSNE">Pcdhg12_cluster_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_Pcdhg12_cluster_UMAP"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_Pcdhg12_cluster_UMAP" role="tab" aria-controls="Pcdhg12_cluster_UMAP">Pcdhg12_cluster_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_Spatial"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_Spatial" role="tab" aria-controls="PcdhgHem_cluster_Spatial">PcdhgHem_cluster_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_tSNE"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_tSNE" role="tab" aria-controls="PcdhgHem_cluster_tSNE">PcdhgHem_cluster_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_PcdhgHem_cluster_UMAP"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_PcdhgHem_cluster_UMAP" role="tab" aria-controls="PcdhgHem_cluster_UMAP">PcdhgHem_cluster_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos123_cluster_Spatial"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos123_cluster_Spatial" role="tab" aria-controls="cfos123_cluster_Spatial">cfos123_cluster_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos123_cluster_tSNE"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos123_cluster_tSNE" role="tab" aria-controls="cfos123_cluster_tSNE">cfos123_cluster_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos123_cluster_UMAP"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos123_cluster_UMAP" role="tab" aria-controls="cfos123_cluster_UMAP">cfos123_cluster_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos456_cluster_Spatial"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos456_cluster_Spatial" role="tab" aria-controls="cfos456_cluster_Spatial">cfos456_cluster_Spatial</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos456_cluster_tSNE"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos456_cluster_tSNE" role="tab" aria-controls="cfos456_cluster_tSNE">cfos456_cluster_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_UniformDistribution_list_cfos456_cluster_UMAP"
+	data-toggle="list" href="#gallery_figure_UniformDistribution_pane_cfos456_cluster_UMAP" role="tab" aria-controls="cfos456_cluster_UMAP">cfos456_cluster_UMAP</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 6.4 聚类分析展示：cluster空间分布、tSNE分布、UMAP分布</p>
+<p class="premark center">cluster_Spatial：cluster的空间分布图，cluster_tSNE：cluster的t-SNE二维空间展示图，cluster_UMAP：cluster的UMAP二维空间展示图</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>6.5 空间特异表达基因分析</a></h3>
+<p class="paragraph">Seurat软件提供了一种不基于聚类结果的空间特异性表达基因筛选的方法。这种方法（markvariogram）可以度量基因表达与其所在空间位置的依赖关系，通过设置一定的阈值，可以检测出空间位置特异表达的基因。我们展示了前6个空间差异分布的基因。</p>
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+    <div id="gallery_figure_clusterspatial_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_clusterspatial_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_clusterspatial_pane_Pcdhg12" 
+    role="tabpanel" aria-labelledby="gallery_figure_clusterspatial_list_Pcdhg12"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.spatial_markers.Spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_clusterspatial_pane_PcdhgHem" 
+    role="tabpanel" aria-labelledby="gallery_figure_clusterspatial_list_PcdhgHem"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.spatial_markers.Spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_clusterspatial_pane_cfos123" 
+    role="tabpanel" aria-labelledby="gallery_figure_clusterspatial_list_cfos123"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.spatial_markers.Spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_clusterspatial_pane_cfos456" 
+    role="tabpanel" aria-labelledby="gallery_figure_clusterspatial_list_cfos456"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.spatial_markers.Spatial.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_clusterspatial_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_clusterspatial_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_clusterspatial_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_clusterspatial_list_Pcdhg12"
+    data-toggle="list" href="#gallery_figure_clusterspatial_pane_Pcdhg12" role="tab" aria-controls="Pcdhg12">Pcdhg12</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_clusterspatial_list_PcdhgHem"
+    data-toggle="list" href="#gallery_figure_clusterspatial_pane_PcdhgHem" role="tab" aria-controls="PcdhgHem">PcdhgHem</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_clusterspatial_list_cfos123"
+    data-toggle="list" href="#gallery_figure_clusterspatial_pane_cfos123" role="tab" aria-controls="cfos123">cfos123</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_clusterspatial_list_cfos456"
+    data-toggle="list" href="#gallery_figure_clusterspatial_pane_cfos456" role="tab" aria-controls="cfos456">cfos456</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 6.5 空间特异表达基因展示</p>
+
+
+
+
+<!---------------------------------------- 差异表达分析 ------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="差异表达分析Q&A">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2 id="id_order_diffexp">7 差异表达分析 </h2>
+<p class="paragraph">我们提供了多种聚类算法的分类结果，客户可以基于研究目的和生物学意义选择合适的结果用于后续分析和科学研究。对于不同的聚类分析结果，我们使用不同的差异分析方法：对于Space Ranger的聚类结果，我们使用edgeR进行差异分析；对于Seurat的聚类结果，我们使用wilcox方法。以上方法均使用各自软件自带的默认算法。通过样品的一个亚群与该样品的所有其他亚群进行比较，得到该亚群与其他亚群之间的差异基因列表。基于差异基因，我们筛选在该亚群中表达高于其他亚群的基因作为候选marker基因，即logFC大于0。针对各cluster中差异表达的基因以多种形式进行展示，结题报告中以信息搜集表中填写的第一个样本的Seurat聚类结果为例进行展示。</p>
+<h3><a>7.1 差异分析结果</a></h3>
+<p class="center">
+    <div id="tb">
+       <table class="gy">
+<tr><th>gene_id</th><th>gene</th><th>cluster</th><th>avg_logFC</th><th>p_val</th><th>p_val_adj</th><th>pct.1</th><th>pct.2</th></tr>
+
+        <tr> 
+        <td>ENSMUSG00000064179</td><td>Tnnt1</td><td>0</td><td>1.85824803526824</td><td>3.94640941277178e-235</td><td>6.79334916314534e-231</td><td>0.988</td><td>0.244
+</td>
+        </tr>
+
+        <tr> 
+        <td>ENSMUSG00000061859</td><td>Patj</td><td>0</td><td>1.20636636571741</td><td>4.76359728869767e-182</td><td>8.20005637276417e-178</td><td>0.96</td><td>0.28
+</td>
+        </tr>
+
+        <tr> 
+        <td>ENSMUSG00000020732</td><td>Rab37</td><td>0</td><td>1.08711901295436</td><td>5.87469032464086e-179</td><td>1.01126919248368e-174</td><td>0.907</td><td>0.219
+</td>
+        </tr>
+
+        <tr> 
+        <td>ENSMUSG00000021948</td><td>Prkcd</td><td>0</td><td>1.98397441193163</td><td>1.00491797456997e-177</td><td>1.72986580142475e-173</td><td>1</td><td>0.672
+</td>
+        </tr>
+
+</table>
+</div>
+      </p>
+      <p class="tremark">(1) gene_id: 基因编号</p>
+      <p class="tremark">(2) gene: 基因名称</p>
+      <p class="tremark">(3) cluster: cluster</p>
+      <p class="tremark">(4) avg_logFC: 基因表达的平均变化倍数（log2转换）</p>
+      <p class="tremark">(5) p_val: 差异分析pvalue</p>
+      <p class="tremark">(6) p_val_adj: 校正后的pvalue</p>
+      <p class="tremark">(7) pct.1: 该cluster中表达该基因的spot占比</p>
+      <p class="tremark">(8) pct.2: 其他cluster中表达该基因的spot占比</p>
+     </p> 
+<h3><a>7.2 差异基因聚类热图展示</a></h3>
+<p class="paragraph">将各个cluster鉴定到的top 差异基因进行整体热图展示，同一个cluster内的差异基因表达量会高于其他组，将log10(UMI+1)值进行归一化转换并进行聚类，热图中黄色表示高表达，紫色表示低表达。聚类热图如下图所示：</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_Differential_Expression_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_Differential_Expression_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_Differential_Expression_pane_Pcdhg12_cluster_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_Differential_Expression_list_Pcdhg12_cluster_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.top10.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Differential_Expression_pane_PcdhgHem_cluster_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_Differential_Expression_list_PcdhgHem_cluster_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.top10.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Differential_Expression_pane_cfos123_cluster_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_Differential_Expression_list_cfos123_cluster_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.top10.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Differential_Expression_pane_cfos456_cluster_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_Differential_Expression_list_cfos456_cluster_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.top10.heatmap.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_Differential_Expression_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_Differential_Expression_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_Differential_Expression_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Differential_Expression_list_Pcdhg12_cluster_heatmap"
+	data-toggle="list" href="#gallery_figure_Differential_Expression_pane_Pcdhg12_cluster_heatmap" role="tab" aria-controls="Pcdhg12_cluster_heatmap">Pcdhg12_cluster_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Differential_Expression_list_PcdhgHem_cluster_heatmap"
+	data-toggle="list" href="#gallery_figure_Differential_Expression_pane_PcdhgHem_cluster_heatmap" role="tab" aria-controls="PcdhgHem_cluster_heatmap">PcdhgHem_cluster_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Differential_Expression_list_cfos123_cluster_heatmap"
+	data-toggle="list" href="#gallery_figure_Differential_Expression_pane_cfos123_cluster_heatmap" role="tab" aria-controls="cfos123_cluster_heatmap">cfos123_cluster_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Differential_Expression_list_cfos456_cluster_heatmap"
+	data-toggle="list" href="#gallery_figure_Differential_Expression_pane_cfos456_cluster_heatmap" role="tab" aria-controls="cfos456_cluster_heatmap">cfos456_cluster_heatmap</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 7.1 差异基因热图展示</p>
+
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="差异基因维恩图">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>7.3 差异基因空间分布展示</a></h3>
+<p class="paragraph">我们对每个cluster的前4个差异基因进行了多种形式的展示，结题报告仅展示一个cluster的差异基因结果。下图是差异基因的空间分布展示。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_markergene_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_markergene_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_markergene_pane_Pcdhg12_cluster0" 
+    role="tabpanel" aria-labelledby="gallery_figure_markergene_list_Pcdhg12_cluster0"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.marker.spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_markergene_pane_PcdhgHem_cluster0" 
+    role="tabpanel" aria-labelledby="gallery_figure_markergene_list_PcdhgHem_cluster0"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.marker.spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_markergene_pane_cfos123_cluster0" 
+    role="tabpanel" aria-labelledby="gallery_figure_markergene_list_cfos123_cluster0"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.marker.spatial.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_markergene_pane_cfos456_cluster0" 
+    role="tabpanel" aria-labelledby="gallery_figure_markergene_list_cfos456_cluster0"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.marker.spatial.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_markergene_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_markergene_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_markergene_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_markergene_list_Pcdhg12_cluster0"
+    data-toggle="list" href="#gallery_figure_markergene_pane_Pcdhg12_cluster0" role="tab" aria-controls="Pcdhg12_cluster0">Pcdhg12_cluster0</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_markergene_list_PcdhgHem_cluster0"
+    data-toggle="list" href="#gallery_figure_markergene_pane_PcdhgHem_cluster0" role="tab" aria-controls="PcdhgHem_cluster0">PcdhgHem_cluster0</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_markergene_list_cfos123_cluster0"
+    data-toggle="list" href="#gallery_figure_markergene_pane_cfos123_cluster0" role="tab" aria-controls="cfos123_cluster0">cfos123_cluster0</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_markergene_list_cfos456_cluster0"
+    data-toggle="list" href="#gallery_figure_markergene_pane_cfos456_cluster0" role="tab" aria-controls="cfos456_cluster0">cfos456_cluster0</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 7.2 差异基因空间分布展示</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>7.4 差异基因Violin图形展示</a></h3>
+<p class="paragraph">我们对每个cluster的前4个差异基因进行了多种形式的展示，结题报告仅展示一个cluster的差异基因结果。下图是差异基因表达的Violin图形展示。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_Co_Exp_Venn_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_Co_Exp_Venn_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_Co_Exp_Venn_pane_Pcdhg12_cluster0" 
+	role="tabpanel" aria-labelledby="gallery_figure_Co_Exp_Venn_list_Pcdhg12_cluster0"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.marker.violin.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Co_Exp_Venn_pane_PcdhgHem_cluster0" 
+	role="tabpanel" aria-labelledby="gallery_figure_Co_Exp_Venn_list_PcdhgHem_cluster0"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.marker.violin.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Co_Exp_Venn_pane_cfos123_cluster0" 
+	role="tabpanel" aria-labelledby="gallery_figure_Co_Exp_Venn_list_cfos123_cluster0"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.marker.violin.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Co_Exp_Venn_pane_cfos456_cluster0" 
+	role="tabpanel" aria-labelledby="gallery_figure_Co_Exp_Venn_list_cfos456_cluster0"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.marker.violin.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_Co_Exp_Venn_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_Co_Exp_Venn_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_Co_Exp_Venn_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Co_Exp_Venn_list_Pcdhg12_cluster0"
+	data-toggle="list" href="#gallery_figure_Co_Exp_Venn_pane_Pcdhg12_cluster0" role="tab" aria-controls="Pcdhg12_cluster0">Pcdhg12_cluster0</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Co_Exp_Venn_list_PcdhgHem_cluster0"
+	data-toggle="list" href="#gallery_figure_Co_Exp_Venn_pane_PcdhgHem_cluster0" role="tab" aria-controls="PcdhgHem_cluster0">PcdhgHem_cluster0</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Co_Exp_Venn_list_cfos123_cluster0"
+	data-toggle="list" href="#gallery_figure_Co_Exp_Venn_pane_cfos123_cluster0" role="tab" aria-controls="cfos123_cluster0">cfos123_cluster0</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Co_Exp_Venn_list_cfos456_cluster0"
+	data-toggle="list" href="#gallery_figure_Co_Exp_Venn_pane_cfos456_cluster0" role="tab" aria-controls="cfos456_cluster0">cfos456_cluster0</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 7.3 差异基因小提琴图</p>
+<p class="premark center">图中展示了4个marker基因，横坐标是cluster编号，纵坐标是基因的平均表达量</p>
+
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3><a>7.5 差异基因tSNE/UMAP降维展示</a></h3>
+<p class="paragraph">我们对每个cluster的前4个差异基因进行了多种形式的展示，结题报告仅展示一个cluster的差异基因结果。下图是差异基因的t-SNE和UMAP降维展示。</p>
+
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_Cluster_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_Cluster_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_Pcdhg12_cluster0_gene_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_Pcdhg12_cluster0_gene_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.marker.tsne.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_Pcdhg12_cluster0_gene_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_Pcdhg12_cluster0_gene_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.marker.umap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_PcdhgHem_cluster0_gene_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_PcdhgHem_cluster0_gene_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.marker.tsne.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_PcdhgHem_cluster0_gene_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_PcdhgHem_cluster0_gene_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.marker.umap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_cfos123_cluster0_gene_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_cfos123_cluster0_gene_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.marker.tsne.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_cfos123_cluster0_gene_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_cfos123_cluster0_gene_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.marker.umap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_cfos456_cluster0_gene_tSNE" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_cfos456_cluster0_gene_tSNE"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.marker.tsne.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_Cluster_pane_cfos456_cluster0_gene_UMAP" 
+	role="tabpanel" aria-labelledby="gallery_figure_Cluster_list_cfos456_cluster0_gene_UMAP"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.marker.umap.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_Cluster_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_Cluster_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_Cluster_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_Pcdhg12_cluster0_gene_tSNE"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_Pcdhg12_cluster0_gene_tSNE" role="tab" aria-controls="Pcdhg12_cluster0_gene_tSNE">Pcdhg12_cluster0_gene_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_Pcdhg12_cluster0_gene_UMAP"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_Pcdhg12_cluster0_gene_UMAP" role="tab" aria-controls="Pcdhg12_cluster0_gene_UMAP">Pcdhg12_cluster0_gene_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_PcdhgHem_cluster0_gene_tSNE"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_PcdhgHem_cluster0_gene_tSNE" role="tab" aria-controls="PcdhgHem_cluster0_gene_tSNE">PcdhgHem_cluster0_gene_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_PcdhgHem_cluster0_gene_UMAP"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_PcdhgHem_cluster0_gene_UMAP" role="tab" aria-controls="PcdhgHem_cluster0_gene_UMAP">PcdhgHem_cluster0_gene_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_cfos123_cluster0_gene_tSNE"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_cfos123_cluster0_gene_tSNE" role="tab" aria-controls="cfos123_cluster0_gene_tSNE">cfos123_cluster0_gene_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_cfos123_cluster0_gene_UMAP"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_cfos123_cluster0_gene_UMAP" role="tab" aria-controls="cfos123_cluster0_gene_UMAP">cfos123_cluster0_gene_UMAP</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_cfos456_cluster0_gene_tSNE"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_cfos456_cluster0_gene_tSNE" role="tab" aria-controls="cfos456_cluster0_gene_tSNE">cfos456_cluster0_gene_tSNE</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_Cluster_list_cfos456_cluster0_gene_UMAP"
+	data-toggle="list" href="#gallery_figure_Cluster_pane_cfos456_cluster0_gene_UMAP" role="tab" aria-controls="cfos456_cluster0_gene_UMAP">cfos456_cluster0_gene_UMAP</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+	<p class="name_fig">图 7.4 差异基因t-SNE和UMAP降维展示</p>
+<p class="premark center">gene_tSNE：基因表达的t-SNE二维空间展示图，gene_UMAP：基因表达的UMAP二维空间展示图</p>
+
+
+
+
+
+
+
+<!-------------------------------GO 富集分析-------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h2 id="id_order_go"><a name="GO富集分析">8 功能富集分析</a></h2>
+<p class="paragraph">通过对不同聚类方式每个cluster差异高表达基因进行富集分析，可以找到每个cluster差异高表达基因与哪些生物学功能或通路显著性相关。诺禾致源采用clusterProfiler软件对每个cluster差异高表达基因集进行GO功能富集分析和KEGG通路富集分析，该方法基于超几何分布原理，进行基因集富集分析（Gene Set Enrichment, GSE）。结题报告展示的表格是信息搜集表中填写的第一个样本的Seurat聚类结果得到的单个cluster差异高表达基因集的富集分析结果</p>
+<h3><a>8.1 GO功能富集</a></h3>
+<p class="paragraph">GO（Gene Ontology）是描述基因功能的综合性数据库，可分为分子功能（molecular function），生物过程（biological process）和细胞组成（cellular component）三个部分。GO富集以校正后的p值小于0.05为显著富集，富集结果如下所示:</p>
+<p class="center">
+<div id="tb">
+<table class="gy">
+<tr><th>Category</th><th>ID</th><th>Description</th><th>GeneRatio</th><th>BgRatio</th><th>pvalue</th><th>padj</th></tr>
+
+<tr>
+        <td>GO_CC</td><td>GO:0043209</td><td>myelin sheath</td><td>78/1465</td><td>189/22260</td><td>2.04075997562369e-42</td><td>1.34567712792626e-38</td>
+                </tr>
+
+<tr>
+        <td>GO_CC</td><td>GO:0045202</td><td>synapse</td><td>159/1465</td><td>793/22260</td><td>5.2676804658237e-38</td><td>1.73675424958207e-34</td>
+                </tr>
+
+<tr>
+        <td>GO_CC</td><td>GO:0030054</td><td>cell junction</td><td>158/1465</td><td>838/22260</td><td>1.99173424195493e-34</td><td>4.37783186381694e-31</td>
+                </tr>
+
+<tr>
+        <td>GO_CC</td><td>GO:0043025</td><td>neuronal cell body</td><td>122/1465</td><td>569/22260</td><td>4.11014394635159e-32</td><td>6.77557229556059e-29</td>
+                </tr>
+
+</table>
+</div>
+</p>
+
+<p class="tremark">(1)Category：数据库名称</p>
+<p class="tremark">(2)ID：GO编号</p>
+<p class="tremark">(3)Description：GO描述</p>
+<p class="tremark">(4)GeneRatio：差异基因比率（该GO中的差异基因数目/所有差异基因数目）</p>
+<p class="tremark">(5)BgRatio：背景基因比率（该GO中的背景基因数目/所有背景基因数目）</p>
+<p class="tremark">(6)pvalue：富集分析的pvalue</p>
+<p class="tremark">(7)p.adjust：校正后的pvalue</p>
+
+<p class="paragraph">GO富集分析的结果，我们展示了富集分析cluster水平热图、富集GO的柱状图，富集GO的散点图和富集GO的网络连接图。</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_GO_Enrich_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_GO_Enrich_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_Enrich_pane_Pcdhg12_GO_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_Enrich_list_Pcdhg12_GO_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.GO.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_Enrich_pane_PcdhgHem_GO_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_Enrich_list_PcdhgHem_GO_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.GO.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_Enrich_pane_cfos123_GO_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_Enrich_list_cfos123_GO_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.GO.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_Enrich_pane_cfos456_GO_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_Enrich_list_cfos456_GO_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.GO.enrich.heatmap.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_GO_Enrich_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_GO_Enrich_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_GO_Enrich_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_Enrich_list_Pcdhg12_GO_heatmap"
+	data-toggle="list" href="#gallery_figure_GO_Enrich_pane_Pcdhg12_GO_heatmap" role="tab" aria-controls="Pcdhg12_GO_heatmap">Pcdhg12_GO_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_Enrich_list_PcdhgHem_GO_heatmap"
+	data-toggle="list" href="#gallery_figure_GO_Enrich_pane_PcdhgHem_GO_heatmap" role="tab" aria-controls="PcdhgHem_GO_heatmap">PcdhgHem_GO_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_Enrich_list_cfos123_GO_heatmap"
+	data-toggle="list" href="#gallery_figure_GO_Enrich_pane_cfos123_GO_heatmap" role="tab" aria-controls="cfos123_GO_heatmap">cfos123_GO_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_Enrich_list_cfos456_GO_heatmap"
+	data-toggle="list" href="#gallery_figure_GO_Enrich_pane_cfos456_GO_heatmap" role="tab" aria-controls="cfos456_GO_heatmap">cfos456_GO_heatmap</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.1 GO富集分析热图</p>
+<p class="premark center">每一行是GO功能，每一列是cluster编号，颜色深浅表示富集分析的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_GOEnrichbar_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_GOEnrichbar_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_GOEnrichbar_pane_Pcdhg12_cluster0_GO_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_GOEnrichbar_list_Pcdhg12_cluster0_GO_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.GO.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GOEnrichbar_pane_PcdhgHem_cluster0_GO_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_GOEnrichbar_list_PcdhgHem_cluster0_GO_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.GO.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GOEnrichbar_pane_cfos123_cluster0_GO_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_GOEnrichbar_list_cfos123_cluster0_GO_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.GO.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GOEnrichbar_pane_cfos456_cluster0_GO_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_GOEnrichbar_list_cfos456_cluster0_GO_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.GO.enrich.barplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_GOEnrichbar_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_GOEnrichbar_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_GOEnrichbar_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GOEnrichbar_list_Pcdhg12_cluster0_GO_bar"
+    data-toggle="list" href="#gallery_figure_GOEnrichbar_pane_Pcdhg12_cluster0_GO_bar" role="tab" aria-controls="Pcdhg12_cluster0_GO_bar">Pcdhg12_cluster0_GO_bar</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GOEnrichbar_list_PcdhgHem_cluster0_GO_bar"
+    data-toggle="list" href="#gallery_figure_GOEnrichbar_pane_PcdhgHem_cluster0_GO_bar" role="tab" aria-controls="PcdhgHem_cluster0_GO_bar">PcdhgHem_cluster0_GO_bar</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GOEnrichbar_list_cfos123_cluster0_GO_bar"
+    data-toggle="list" href="#gallery_figure_GOEnrichbar_pane_cfos123_cluster0_GO_bar" role="tab" aria-controls="cfos123_cluster0_GO_bar">cfos123_cluster0_GO_bar</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GOEnrichbar_list_cfos456_cluster0_GO_bar"
+    data-toggle="list" href="#gallery_figure_GOEnrichbar_pane_cfos456_cluster0_GO_bar" role="tab" aria-controls="cfos456_cluster0_GO_bar">cfos456_cluster0_GO_bar</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.2 GO富集分析柱状图</p>
+<p class="premark center">横坐标是差异基因数量，纵坐标是GO功能，颜色深浅表示富集的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="topGO有向无环图分析">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_GO_DAG_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_GO_DAG_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_DAG_pane_Pcdhg12_cluster0_GO_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_DAG_list_Pcdhg12_cluster0_GO_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.GO.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_DAG_pane_PcdhgHem_cluster0_GO_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_DAG_list_PcdhgHem_cluster0_GO_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.GO.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_DAG_pane_cfos123_cluster0_GO_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_DAG_list_cfos123_cluster0_GO_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.GO.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_GO_DAG_pane_cfos456_cluster0_GO_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_GO_DAG_list_cfos456_cluster0_GO_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.GO.enrich.dotplot.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_GO_DAG_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_GO_DAG_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_GO_DAG_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_DAG_list_Pcdhg12_cluster0_GO_dot"
+	data-toggle="list" href="#gallery_figure_GO_DAG_pane_Pcdhg12_cluster0_GO_dot" role="tab" aria-controls="Pcdhg12_cluster0_GO_dot">Pcdhg12_cluster0_GO_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_DAG_list_PcdhgHem_cluster0_GO_dot"
+	data-toggle="list" href="#gallery_figure_GO_DAG_pane_PcdhgHem_cluster0_GO_dot" role="tab" aria-controls="PcdhgHem_cluster0_GO_dot">PcdhgHem_cluster0_GO_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_DAG_list_cfos123_cluster0_GO_dot"
+	data-toggle="list" href="#gallery_figure_GO_DAG_pane_cfos123_cluster0_GO_dot" role="tab" aria-controls="cfos123_cluster0_GO_dot">cfos123_cluster0_GO_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_GO_DAG_list_cfos456_cluster0_GO_dot"
+	data-toggle="list" href="#gallery_figure_GO_DAG_pane_cfos456_cluster0_GO_dot" role="tab" aria-controls="cfos456_cluster0_GO_dot">cfos456_cluster0_GO_dot</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.3 GO富集分析散点图</p>
+<p class="premark center">横坐标是差异基因占比，纵坐标是GO功能，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">	
+	<div id="gallery_figure_GO_emaplot_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_GO_emaplot_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_GO_emaplot_pane_Pcdhg12_cluster0_GO_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_GO_emaplot_list_Pcdhg12_cluster0_GO_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.GO.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GO_emaplot_pane_PcdhgHem_cluster0_GO_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_GO_emaplot_list_PcdhgHem_cluster0_GO_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.GO.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GO_emaplot_pane_cfos123_cluster0_GO_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_GO_emaplot_list_cfos123_cluster0_GO_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.GO.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_GO_emaplot_pane_cfos456_cluster0_GO_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_GO_emaplot_list_cfos456_cluster0_GO_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.GO.enrich.emapplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_GO_emaplot_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_GO_emaplot_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_GO_emaplot_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GO_emaplot_list_Pcdhg12_cluster0_GO_emapplot"
+    data-toggle="list" href="#gallery_figure_GO_emaplot_pane_Pcdhg12_cluster0_GO_emapplot" role="tab" aria-controls="Pcdhg12_cluster0_GO_emapplot">Pcdhg12_cluster0_GO_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GO_emaplot_list_PcdhgHem_cluster0_GO_emapplot"
+    data-toggle="list" href="#gallery_figure_GO_emaplot_pane_PcdhgHem_cluster0_GO_emapplot" role="tab" aria-controls="PcdhgHem_cluster0_GO_emapplot">PcdhgHem_cluster0_GO_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GO_emaplot_list_cfos123_cluster0_GO_emapplot"
+    data-toggle="list" href="#gallery_figure_GO_emaplot_pane_cfos123_cluster0_GO_emapplot" role="tab" aria-controls="cfos123_cluster0_GO_emapplot">cfos123_cluster0_GO_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_GO_emaplot_list_cfos456_cluster0_GO_emapplot"
+    data-toggle="list" href="#gallery_figure_GO_emaplot_pane_cfos456_cluster0_GO_emapplot" role="tab" aria-controls="cfos456_cluster0_GO_emapplot">cfos456_cluster0_GO_emapplot</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.4 GO富集分析网络连接图</p>
+<p class="premark center">点代表GO功能，线条的粗细表示两两GO之间共有的差异基因数量，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+
+
+
+<!---------------------------差异基因 KEGG富集分析---------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3 id="id_order_kegg">8.2 KEGG通路富集</h3>
+<p class="paragraph">KEGG(Kyoto Encyclopedia of Genes and Genomes)是整合了基因组、化学和系统功能信息的综合性数据库。KEGG富集以校正后的p值小于0.05为显著富集，富集结果如下所示：</p>
+
+<p class="center">
+<div id="tb">
+<table class="gy">
+<tr><th>Category</th><th>ID</th><th>Description</th><th>GeneRatio</th><th>BgRatio</th><th>pvalue</th><th>padj</th></tr>
+
+<tr>
+        <td>KEGG</td><td>mmu05012</td><td>Parkinson disease</td><td>61/655</td><td>145/8788</td><td>1.55793637524992e-31</td><td>2.74240301405842e-29</td>
+
+<tr>
+        <td>KEGG</td><td>mmu05010</td><td>Alzheimer disease</td><td>95/655</td><td>342/8788</td><td>1.81016700597915e-31</td><td>2.74240301405842e-29</td>
+
+<tr>
+        <td>KEGG</td><td>mmu00190</td><td>Oxidative phosphorylation</td><td>54/655</td><td>136/8788</td><td>1.6784807785727e-26</td><td>1.69526558635843e-24</td>
+
+<tr>
+        <td>KEGG</td><td>mmu05016</td><td>Huntington disease</td><td>77/655</td><td>272/8788</td><td>4.12806498122541e-26</td><td>3.12700922327824e-24</td>
+
+</table>
+</div>
+</p>
+
+<p class="tremark">(1)Category：数据库名称</p>
+<p class="tremark">(2)ID：KEGG 编号</p>
+<p class="tremark">(3)Description：KEGG描述</p>
+<p class="tremark">(4)GeneRatio：差异基因比率（该KEGG中的差异基因数目/所有差异基因数目）</p>
+<p class="tremark">(5)BgRatio：背景基因比率（该KEGG中的背景基因数目/所有背景基因数目）</p>
+<p class="tremark">(6)pvalue：富集分析的pvalue</p>
+<p class="tremark">(7)p.adjust: 校正后的pvalue</p>
+
+<p class="paragraph">KEGG通路富集分析的结果，我们展示了富集分析cluster水平热图、富集KEGG通路的柱状图，富集KEGG通路的散点图和富集KEGG通路的网络连接图。</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_KEGG_Enrich_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_KEGG_Enrich_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Enrich_pane_Pcdhg12_KEGG_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Enrich_list_Pcdhg12_KEGG_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.KEGG.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Enrich_pane_PcdhgHem_KEGG_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Enrich_list_PcdhgHem_KEGG_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.KEGG.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Enrich_pane_cfos123_KEGG_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Enrich_list_cfos123_KEGG_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.KEGG.enrich.heatmap.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Enrich_pane_cfos456_KEGG_heatmap" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Enrich_list_cfos456_KEGG_heatmap"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.KEGG.enrich.heatmap.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_KEGG_Enrich_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_KEGG_Enrich_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_KEGG_Enrich_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Enrich_list_Pcdhg12_KEGG_heatmap"
+	data-toggle="list" href="#gallery_figure_KEGG_Enrich_pane_Pcdhg12_KEGG_heatmap" role="tab" aria-controls="Pcdhg12_KEGG_heatmap">Pcdhg12_KEGG_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Enrich_list_PcdhgHem_KEGG_heatmap"
+	data-toggle="list" href="#gallery_figure_KEGG_Enrich_pane_PcdhgHem_KEGG_heatmap" role="tab" aria-controls="PcdhgHem_KEGG_heatmap">PcdhgHem_KEGG_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Enrich_list_cfos123_KEGG_heatmap"
+	data-toggle="list" href="#gallery_figure_KEGG_Enrich_pane_cfos123_KEGG_heatmap" role="tab" aria-controls="cfos123_KEGG_heatmap">cfos123_KEGG_heatmap</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Enrich_list_cfos456_KEGG_heatmap"
+	data-toggle="list" href="#gallery_figure_KEGG_Enrich_pane_cfos456_KEGG_heatmap" role="tab" aria-controls="cfos456_KEGG_heatmap">cfos456_KEGG_heatmap</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图.8.5 KEGG富集分析热图</p>
+<p class="premark center">每一行是KEGG通路，每一列是cluster编号，颜色深浅表示富集分析的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_KEGGEnrichBar_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_KEGGEnrichBar_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGGEnrichBar_pane_Pcdhg12_cluster0_KEGG_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGGEnrichBar_list_Pcdhg12_cluster0_KEGG_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.KEGG.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGGEnrichBar_pane_PcdhgHem_cluster0_KEGG_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGGEnrichBar_list_PcdhgHem_cluster0_KEGG_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.KEGG.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGGEnrichBar_pane_cfos123_cluster0_KEGG_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGGEnrichBar_list_cfos123_cluster0_KEGG_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.KEGG.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGGEnrichBar_pane_cfos456_cluster0_KEGG_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGGEnrichBar_list_cfos456_cluster0_KEGG_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.KEGG.enrich.barplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_KEGGEnrichBar_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_KEGGEnrichBar_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_KEGGEnrichBar_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGGEnrichBar_list_Pcdhg12_cluster0_KEGG_bar"
+    data-toggle="list" href="#gallery_figure_KEGGEnrichBar_pane_Pcdhg12_cluster0_KEGG_bar" role="tab" aria-controls="Pcdhg12_cluster0_KEGG_bar">Pcdhg12_cluster0_KEGG_bar</a>
+
+
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGGEnrichBar_list_PcdhgHem_cluster0_KEGG_bar"
+    data-toggle="list" href="#gallery_figure_KEGGEnrichBar_pane_PcdhgHem_cluster0_KEGG_bar" role="tab" aria-controls="PcdhgHem_cluster0_KEGG_bar">PcdhgHem_cluster0_KEGG_bar</a>
+
+
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGGEnrichBar_list_cfos123_cluster0_KEGG_bar"
+    data-toggle="list" href="#gallery_figure_KEGGEnrichBar_pane_cfos123_cluster0_KEGG_bar" role="tab" aria-controls="cfos123_cluster0_KEGG_bar">cfos123_cluster0_KEGG_bar</a>
+
+
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGGEnrichBar_list_cfos456_cluster0_KEGG_bar"
+    data-toggle="list" href="#gallery_figure_KEGGEnrichBar_pane_cfos456_cluster0_KEGG_bar" role="tab" aria-controls="cfos456_cluster0_KEGG_bar">cfos456_cluster0_KEGG_bar</a>
+
+
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图.8.6 KEGG富集分析热图</p>
+<p class="premark center">横坐标是差异基因数量，纵坐标是KEGG通路，颜色深浅表示富集的pvalue（校正后）</p>
+
+<!------------------------------富集KEGG通路图----------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="富集KEGG通路图">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_KEGG_Pathway_button_prev" class="button_prev" onclick="prev(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_prev">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-6">
+	<div class="tab-content" id="gallery_figure_KEGG_Pathway_nav-tabContent">
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Pathway_pane_Pcdhg12_cluster0_KEGG_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Pathway_list_Pcdhg12_cluster0_KEGG_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.KEGG.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Pathway_pane_PcdhgHem_cluster0_KEGG_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Pathway_list_PcdhgHem_cluster0_KEGG_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.KEGG.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Pathway_pane_cfos123_cluster0_KEGG_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Pathway_list_cfos123_cluster0_KEGG_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.KEGG.enrich.dotplot.png" /></div>
+	
+	<div class="tab-pane fade" id="gallery_figure_KEGG_Pathway_pane_cfos456_cluster0_KEGG_dot" 
+	role="tabpanel" aria-labelledby="gallery_figure_KEGG_Pathway_list_cfos456_cluster0_KEGG_dot"
+	onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.KEGG.enrich.dotplot.png" /></div>
+	
+	</div></div>
+	<div class="col-1">
+	<div id="gallery_figure_KEGG_Pathway_button_next" class="button_next" onclick="next(this.id)">
+	<svg viewbox="0 0 16000 16000" class="svg_next">
+	<circle class="c" cx="8000" cy="8000" r="6080"></circle>
+	<polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+	</polygon></svg></div></div>
+	<div class="col-4">
+	<input class="form-control" id="gallery_figure_KEGG_Pathway_InputList" type="text" placeholder="Search..">
+	<div class="list-group" id="gallery_figure_KEGG_Pathway_list-tab" role="tablist">
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Pathway_list_Pcdhg12_cluster0_KEGG_dot"
+	data-toggle="list" href="#gallery_figure_KEGG_Pathway_pane_Pcdhg12_cluster0_KEGG_dot" role="tab" aria-controls="Pcdhg12_cluster0_KEGG_dot">Pcdhg12_cluster0_KEGG_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Pathway_list_PcdhgHem_cluster0_KEGG_dot"
+	data-toggle="list" href="#gallery_figure_KEGG_Pathway_pane_PcdhgHem_cluster0_KEGG_dot" role="tab" aria-controls="PcdhgHem_cluster0_KEGG_dot">PcdhgHem_cluster0_KEGG_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Pathway_list_cfos123_cluster0_KEGG_dot"
+	data-toggle="list" href="#gallery_figure_KEGG_Pathway_pane_cfos123_cluster0_KEGG_dot" role="tab" aria-controls="cfos123_cluster0_KEGG_dot">cfos123_cluster0_KEGG_dot</a>
+	
+	<a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_Pathway_list_cfos456_cluster0_KEGG_dot"
+	data-toggle="list" href="#gallery_figure_KEGG_Pathway_pane_cfos456_cluster0_KEGG_dot" role="tab" aria-controls="cfos456_cluster0_KEGG_dot">cfos456_cluster0_KEGG_dot</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.7 KEGG富集分析散点图</p>
+<p class="premark center">横坐标是差异基因占比，纵坐标是KEGG通路，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_KEGG_emaplot_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_KEGG_emaplot_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGG_emaplot_pane_Pcdhg12_cluster0_KEGG_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGG_emaplot_list_Pcdhg12_cluster0_KEGG_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.KEGG.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGG_emaplot_pane_PcdhgHem_cluster0_KEGG_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGG_emaplot_list_PcdhgHem_cluster0_KEGG_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.KEGG.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGG_emaplot_pane_cfos123_cluster0_KEGG_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGG_emaplot_list_cfos123_cluster0_KEGG_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.KEGG.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_KEGG_emaplot_pane_cfos456_cluster0_KEGG_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_KEGG_emaplot_list_cfos456_cluster0_KEGG_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.KEGG.enrich.emapplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_KEGG_emaplot_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_KEGG_emaplot_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_KEGG_emaplot_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_emaplot_list_Pcdhg12_cluster0_KEGG_emapplot"
+    data-toggle="list" href="#gallery_figure_KEGG_emaplot_pane_Pcdhg12_cluster0_KEGG_emapplot" role="tab" aria-controls="Pcdhg12_cluster0_KEGG_emapplot">Pcdhg12_cluster0_KEGG_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_emaplot_list_PcdhgHem_cluster0_KEGG_emapplot"
+    data-toggle="list" href="#gallery_figure_KEGG_emaplot_pane_PcdhgHem_cluster0_KEGG_emapplot" role="tab" aria-controls="PcdhgHem_cluster0_KEGG_emapplot">PcdhgHem_cluster0_KEGG_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_emaplot_list_cfos123_cluster0_KEGG_emapplot"
+    data-toggle="list" href="#gallery_figure_KEGG_emaplot_pane_cfos123_cluster0_KEGG_emapplot" role="tab" aria-controls="cfos123_cluster0_KEGG_emapplot">cfos123_cluster0_KEGG_emapplot</a>
+	
+    <a class="list-group-item list-group-item-action" id="gallery_figure_KEGG_emaplot_list_cfos456_cluster0_KEGG_emapplot"
+    data-toggle="list" href="#gallery_figure_KEGG_emaplot_pane_cfos456_cluster0_KEGG_emapplot" role="tab" aria-controls="cfos456_cluster0_KEGG_emapplot">cfos456_cluster0_KEGG_emapplot</a>
+	
+	</div>
+	</div>
+	</div>
+	</p>
+<p class="name_fig">图 8.8 KEGG富集分析网络连接图</p>
+<p class="premark center">点代表KEGG通路，线条的粗细表示两两KEGG通路之间共有的差异基因数量，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+
+
+
+<!---------------------------差异基因 REACTOME 富集分析---------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+<h3 id="id_order_kegg">8.3 Reactome通路富集</h3>
+<p class="paragraph">Reactome数据库汇集了人类各项反应及生物学通路。Reactome富集以padj小于0.05为显著富集，富集结果如下所示：</p>
+
+<p class="center">
+<div id="tb">
+<table class="gy">
+<tr><th>Category</th><th>ID</th><th>Description</th><th>GeneRatio</th><th>BgRatio</th><th>pvalue</th><th>padj</th></tr>
+
+<tr>
+        <td>REACTOME</td><td>R-MMU-1428517</td><td>The citric acid (TCA) cycle and respiratory electron transport</td><td>50/712</td><td>128/8669</td><td>2.57348278077152e-22</td><td>2.77421443767169e-19</td>
+
+<tr>
+        <td>REACTOME</td><td>R-MMU-112316</td><td>Neuronal System</td><td>79/712</td><td>311/8669</td><td>1.00316983525092e-20</td><td>5.40708541200245e-18</td>
+
+<tr>
+        <td>REACTOME</td><td>R-MMU-163200</td><td>Respiratory electron transport, ATP synthesis by chemiosmotic coupling, and heat production by uncoupling proteins.</td><td>30/712</td><td>78/8669</td><td>1.16696205541263e-13</td><td>4.19328365244937e-11</td>
+
+<tr>
+        <td>REACTOME</td><td>R-MMU-1430728</td><td>Metabolism</td><td>214/712</td><td>1669/8669</td><td>2.94560514185649e-13</td><td>7.93840585730325e-11</td>
+
+</table>
+</div>
+</p>
+
+<p class="tremark">(1)Category：数据库名称</p>
+<p class="tremark">(2)ID：Reactome 通路编号</p>
+<p class="tremark">(3)Description：Reactome通路描述</p>
+<p class="tremark">(4)GeneRatio：差异基因比率（该Reactome通路中的差异基因数目/所有差异基因数目）</p>
+<p class="tremark">(5)BgRatio: 背景基因比率（该Reactome通路中的背景基因数目/所有背景基因数目）</p>
+<p class="tremark">(6)pvalue：富集分析的pvalue</p>
+<p class="tremark">(7)p.adjust: 校正后的pvalue</p>
+
+<p class="paragraph">Reactome通路富集分析的结果，我们展示了富集分析cluster水平热图、富集Reactome通路的柱状图，富集Reactome通路的散点图和富集Reactome通路的网络连接图。</p>
+<p class="center">
+        <div class="row">
+        <div class="col-1">
+        <div id="gallery_figure_Reactome_Enrich_button_prev" class="button_prev" onclick="prev(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_prev">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-6">
+        <div class="tab-content" id="gallery_figure_Reactome_Enrich_nav-tabContent">
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Enrich_pane_Pcdhg12_reactome_heatmap" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Enrich_list_Pcdhg12_reactome_heatmap"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster.REACTOME.enrich.heatmap.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Enrich_pane_PcdhgHem_reactome_heatmap" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Enrich_list_PcdhgHem_reactome_heatmap"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster.REACTOME.enrich.heatmap.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Enrich_pane_cfos123_reactome_heatmap" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Enrich_list_cfos123_reactome_heatmap"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster.REACTOME.enrich.heatmap.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Enrich_pane_cfos456_reactome_heatmap" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Enrich_list_cfos456_reactome_heatmap"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster.REACTOME.enrich.heatmap.png" /></div>
+        
+        </div></div>
+        <div class="col-1">
+        <div id="gallery_figure_Reactome_Enrich_button_next" class="button_next" onclick="next(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_next">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-4">
+        <input class="form-control" id="gallery_figure_Reactome_Enrich_InputList" type="text" placeholder="Search..">
+        <div class="list-group" id="gallery_figure_Reactome_Enrich_list-tab" role="tablist">
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Enrich_list_Pcdhg12_reactome_heatmap"
+        data-toggle="list" href="#gallery_figure_Reactome_Enrich_pane_Pcdhg12_reactome_heatmap" role="tab" aria-controls="Pcdhg12_reactome_heatmap">Pcdhg12_reactome_heatmap</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Enrich_list_PcdhgHem_reactome_heatmap"
+        data-toggle="list" href="#gallery_figure_Reactome_Enrich_pane_PcdhgHem_reactome_heatmap" role="tab" aria-controls="PcdhgHem_reactome_heatmap">PcdhgHem_reactome_heatmap</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Enrich_list_cfos123_reactome_heatmap"
+        data-toggle="list" href="#gallery_figure_Reactome_Enrich_pane_cfos123_reactome_heatmap" role="tab" aria-controls="cfos123_reactome_heatmap">cfos123_reactome_heatmap</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Enrich_list_cfos456_reactome_heatmap"
+        data-toggle="list" href="#gallery_figure_Reactome_Enrich_pane_cfos456_reactome_heatmap" role="tab" aria-controls="cfos456_reactome_heatmap">cfos456_reactome_heatmap</a>
+        
+        </div>
+        </div>
+        </div>
+        </p>
+<p class="name_fig">图.8.9 Reactome通路富集分析热图</p>
+<p class="premark center">每一行是Reactome通路，每一列是cluster编号，颜色深浅表示富集分析的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_ReactomeEnrichBar_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_ReactomeEnrichBar_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_ReactomeEnrichBar_pane_Pcdhg12_cluster0_reactome_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_ReactomeEnrichBar_list_Pcdhg12_cluster0_reactome_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.REACTOME.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_ReactomeEnrichBar_pane_PcdhgHem_cluster0_reactome_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_ReactomeEnrichBar_list_PcdhgHem_cluster0_reactome_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.REACTOME.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_ReactomeEnrichBar_pane_cfos123_cluster0_reactome_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_ReactomeEnrichBar_list_cfos123_cluster0_reactome_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.REACTOME.enrich.barplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_ReactomeEnrichBar_pane_cfos456_cluster0_reactome_bar" 
+    role="tabpanel" aria-labelledby="gallery_figure_ReactomeEnrichBar_list_cfos456_cluster0_reactome_bar"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.REACTOME.enrich.barplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_ReactomeEnrichBar_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_ReactomeEnrichBar_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_ReactomeEnrichBar_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_ReactomeEnrichBar_list_Pcdhg12_cluster0_reactome_bar"
+    data-toggle="list" href="#gallery_figure_ReactomeEnrichBar_pane_Pcdhg12_cluster0_reactome_bar" role="tab" aria-controls="Pcdhg12_cluster0_reactome_bar">Pcdhg12_cluster0_reactome_bar</a>
+
+
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_ReactomeEnrichBar_list_PcdhgHem_cluster0_reactome_bar"
+    data-toggle="list" href="#gallery_figure_ReactomeEnrichBar_pane_PcdhgHem_cluster0_reactome_bar" role="tab" aria-controls="PcdhgHem_cluster0_reactome_bar">PcdhgHem_cluster0_reactome_bar</a>
+
+
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_ReactomeEnrichBar_list_cfos123_cluster0_reactome_bar"
+    data-toggle="list" href="#gallery_figure_ReactomeEnrichBar_pane_cfos123_cluster0_reactome_bar" role="tab" aria-controls="cfos123_cluster0_reactome_bar">cfos123_cluster0_reactome_bar</a>
+
+
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_ReactomeEnrichBar_list_cfos456_cluster0_reactome_bar"
+    data-toggle="list" href="#gallery_figure_ReactomeEnrichBar_pane_cfos456_cluster0_reactome_bar" role="tab" aria-controls="cfos456_cluster0_reactome_bar">cfos456_cluster0_reactome_bar</a>
+
+
+        
+        </div>
+        </div>
+        </div>
+        </p>
+<p class="name_fig">图.8.10 Reactome通路富集分析柱状图</p>
+<p class="premark center">横坐标是差异基因数量，纵坐标是Reactome通路，颜色深浅表示富集的pvalue（校正后）</p>
+<br>
+
+<!------------------------------富集Reactome通路图----------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a name="富集Reactome通路图">北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+        <p class="center">
+        <div class="row">
+        <div class="col-1">
+        <div id="gallery_figure_Reactome_Pathway_button_prev" class="button_prev" onclick="prev(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_prev">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-6">
+        <div class="tab-content" id="gallery_figure_Reactome_Pathway_nav-tabContent">
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Pathway_pane_Pcdhg12_cluster0_reactome_dot" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Pathway_list_Pcdhg12_cluster0_reactome_dot"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.REACTOME.enrich.dotplot.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Pathway_pane_PcdhgHem_cluster0_reactome_dot" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Pathway_list_PcdhgHem_cluster0_reactome_dot"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.REACTOME.enrich.dotplot.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Pathway_pane_cfos123_cluster0_reactome_dot" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Pathway_list_cfos123_cluster0_reactome_dot"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.REACTOME.enrich.dotplot.png" /></div>
+        
+        <div class="tab-pane fade" id="gallery_figure_Reactome_Pathway_pane_cfos456_cluster0_reactome_dot" 
+        role="tabpanel" aria-labelledby="gallery_figure_Reactome_Pathway_list_cfos456_cluster0_reactome_dot"
+        onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.REACTOME.enrich.dotplot.png" /></div>
+        
+        </div></div>
+        <div class="col-1">
+        <div id="gallery_figure_Reactome_Pathway_button_next" class="button_next" onclick="next(this.id)">
+        <svg viewbox="0 0 16000 16000" class="svg_next">
+        <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+        <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+        </polygon></svg></div></div>
+        <div class="col-4">
+        <input class="form-control" id="gallery_figure_Reactome_Pathway_InputList" type="text" placeholder="Search..">
+        <div class="list-group" id="gallery_figure_Reactome_Pathway_list-tab" role="tablist">
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Pathway_list_Pcdhg12_cluster0_reactome_dot"
+        data-toggle="list" href="#gallery_figure_Reactome_Pathway_pane_Pcdhg12_cluster0_reactome_dot" role="tab" aria-controls="Pcdhg12_cluster0_reactome_dot">Pcdhg12_cluster0_reactome_dot</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Pathway_list_PcdhgHem_cluster0_reactome_dot"
+        data-toggle="list" href="#gallery_figure_Reactome_Pathway_pane_PcdhgHem_cluster0_reactome_dot" role="tab" aria-controls="PcdhgHem_cluster0_reactome_dot">PcdhgHem_cluster0_reactome_dot</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Pathway_list_cfos123_cluster0_reactome_dot"
+        data-toggle="list" href="#gallery_figure_Reactome_Pathway_pane_cfos123_cluster0_reactome_dot" role="tab" aria-controls="cfos123_cluster0_reactome_dot">cfos123_cluster0_reactome_dot</a>
+        
+        <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_Pathway_list_cfos456_cluster0_reactome_dot"
+        data-toggle="list" href="#gallery_figure_Reactome_Pathway_pane_cfos456_cluster0_reactome_dot" role="tab" aria-controls="cfos456_cluster0_reactome_dot">cfos456_cluster0_reactome_dot</a>
+        
+        </div>
+        </div>
+        </div>
+        </p>
+<p class="name_fig">图 8.11 Reactome通路富集分析散点图</p>
+<p class="premark center">横坐标是差异基因占比，纵坐标是Reactome通路，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a>北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+	<p class="center">
+	<div class="row">
+	<div class="col-1">
+	<div id="gallery_figure_Reactome_emaplot_button_prev" class="button_prev" onclick="prev(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_prev">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="8789.5,4902.8 8789.5,5846.4 6801.7,8000 8789.5,10253.6 8789.5,11097.2 5930.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-6">
+    <div class="tab-content" id="gallery_figure_Reactome_emaplot_nav-tabContent">
+    
+    <div class="tab-pane fade" id="gallery_figure_Reactome_emaplot_pane_Pcdhg12_cluster0_reactome_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_Reactome_emaplot_list_Pcdhg12_cluster0_reactome_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/Pcdhg12.cluster0.REACTOME.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_Reactome_emaplot_pane_PcdhgHem_cluster0_reactome_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_Reactome_emaplot_list_PcdhgHem_cluster0_reactome_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/PcdhgHem.cluster0.REACTOME.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_Reactome_emaplot_pane_cfos123_cluster0_reactome_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_Reactome_emaplot_list_cfos123_cluster0_reactome_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos123.cluster0.REACTOME.enrich.emapplot.png" /></div>
+    
+    <div class="tab-pane fade" id="gallery_figure_Reactome_emaplot_pane_cfos456_cluster0_reactome_emapplot" 
+    role="tabpanel" aria-labelledby="gallery_figure_Reactome_emaplot_list_cfos456_cluster0_reactome_emapplot"
+    onclick="trans(this.id)"><img class="img-gallery" src="src/pictures/Seurat/cfos456.cluster0.REACTOME.enrich.emapplot.png" /></div>
+    
+    </div></div>
+    <div class="col-1">
+    <div id="gallery_figure_Reactome_emaplot_button_next" class="button_next" onclick="next(this.id)">
+    <svg viewbox="0 0 16000 16000" class="svg_next">
+    <circle class="c" cx="8000" cy="8000" r="6080"></circle>
+    <polygon class="a" points="7210.5,4902.8 7210.5,5846.4 9198.3,8000 7210.5,10253.6 7210.5,11097.2 10069.5,8000 ">
+    </polygon></svg></div></div>
+    <div class="col-4">
+    <input class="form-control" id="gallery_figure_Reactome_emaplot_InputList" type="text" placeholder="Search..">
+    <div class="list-group" id="gallery_figure_Reactome_emaplot_list-tab" role="tablist">
+    
+    <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_emaplot_list_Pcdhg12_cluster0_reactome_emapplot"
+    data-toggle="list" href="#gallery_figure_Reactome_emaplot_pane_Pcdhg12_cluster0_reactome_emapplot" role="tab" aria-controls="Pcdhg12_cluster0_reactome_emapplot">Pcdhg12_cluster0_reactome_emapplot</a>
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_emaplot_list_PcdhgHem_cluster0_reactome_emapplot"
+    data-toggle="list" href="#gallery_figure_Reactome_emaplot_pane_PcdhgHem_cluster0_reactome_emapplot" role="tab" aria-controls="PcdhgHem_cluster0_reactome_emapplot">PcdhgHem_cluster0_reactome_emapplot</a>
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_emaplot_list_cfos123_cluster0_reactome_emapplot"
+    data-toggle="list" href="#gallery_figure_Reactome_emaplot_pane_cfos123_cluster0_reactome_emapplot" role="tab" aria-controls="cfos123_cluster0_reactome_emapplot">cfos123_cluster0_reactome_emapplot</a>
+        
+    <a class="list-group-item list-group-item-action" id="gallery_figure_Reactome_emaplot_list_cfos456_cluster0_reactome_emapplot"
+    data-toggle="list" href="#gallery_figure_Reactome_emaplot_pane_cfos456_cluster0_reactome_emapplot" role="tab" aria-controls="cfos456_cluster0_reactome_emapplot">cfos456_cluster0_reactome_emapplot</a>
+        
+        </div>
+        </div>
+        </div>
+        </p>
+<p class="name_fig">图 8.12 Reactome通路富集分析网络连接图</p>
+<p class="premark center">点代表Reactome通路，线条的粗细表示两两Reactome通路之间共有的差异基因数量，点的大小表示差异基因数量，点的颜色深浅表示富集的pvalue（校正后）</p>
+
+
+
+
+
+
+<!-------------------------------------------- 备注 ------------------------------------------->
+
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a >北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+
+<h2><a id="备注">备注</a></h2>
+</br>
+<!--<h3  id="文件目录列表">结果文件目录列表</h3>
+<p class="paragraph">为了方便您查看项目的结果文件，我们提供了结果文件的<a href="src/Methods.pdf" title="点击打开" target="_blank">目录列表</a>（配有相应的中文说明），项目结果文件可通过此目录列表查看。</p>
+<br>-->
+
+<h3 id="软件列表">分析软件列表及版本</h3>
+<!------------------------------------------软件列表------------------------------------------------------>
+	<table width=95% align="center" id="result_note" cellspacing="0" cellpadding="5" class="gy2">
+		<tr><th>分析内容</th><th>软件</th><th>版本</th></tr>
+		<tr><td>质控</td><td>inhouse</td><td>1.0.0</td></tr>
+		<tr><td>比对和定量</td><td>SpaceRanger</td><td>spaceranger-2.0.0</td></tr>
+		<tr><td>降维和聚类分析</td><td>SpaceRanger</td><td>spaceranger-2.0.0</td></tr>
+		<tr><td>降维和聚类分析</td><td>Seurat</td><td>3.1.2</td></tr>
+		<tr><td>多样本整合</td><td>SpaceRanger</td><td>spaceranger-2.0.0</td></tr>	
+		<tr><td>多样本整合</td><td>Harmony</td><td>1.0</td></tr>
+		<tr><td>样本差异分析</td><td>edgeR</td><td>3.24.3</td></tr>
+		<tr><td>富集分析</td><td>clusterProfiler</td><td>3.10.1</td></tr>
+	</table>
+	<br>
+
+<!------------------------------------------------------------------------------------------------>
+<a name="Methods英文版" ><h3 id="Methods英文版">Methods</h3></a>
+<p class="paragraph">为了方便您撰写文章，我们整理了<a href="src/Methods.pdf" title="点击打开" target="_blank">英文版methods</a>可供参考。</p>
+
+<a><h3 id="Methods英文版">Loupe Brower使用说明</h3></a>
+<p class="paragraph">为了方便您查看结果文件中的cloupe文件，我们提供了Loupe Browser可视化软件的<a href="src/Loupe_Browser_Manual_CN.pdf" title="点击打开" target="_blank">中文使用说明</a>，用于聚类、分型、差异基因筛选及heatmap图绘制等多功能的实现。
+
+
+<!-------------------------------------------- 参考文献 ------------------------------------------->
+<p class="head"><a href="#home" title = "返回首页"><img class="logo" align="left" src="src/images/logo.png" /></a>
+<a >北京诺禾致源科技股份有限公司</a>
+<hr />
+</p>
+
+<h2 name="参考文献">参考文献</h2>
+<p class=ref>
+1. Westholm, J.O., Huss, M., et al. (2016). Visualization and analysis of gene expression in tissue sections by spatial transcriptomics. Science 353, 78-82.<p/>
+2. Dobin A, Davis C A, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner[J]. Bioinformatics, 2013, 29(1): 15-21.<p/>
+3. Becht, E., McInnes, L., Healy, J. et al. Dimensionality reduction for visualizing single-cell data using UMAP. Nat Biotechnol 37, 38–44 (2019).<p/>
+4. Van der Maaten, L., Accelerating t-SNE using Tree-Based Algorithms. Journal of Machine Learning Research 15, 3221-3245 (2014).<p/>
+5. Butler, A., Hoffman, P., Smibert, P., Papalexi, E., & Satija, R. (2018). Integrating single-cell transcriptomic data across different conditions, technologies, and species. Nature Biotechnology, 36(5), 411–420. <p/> 
+6. Stuart,T.etal.Comprehensive Integration of Single-Cell Data. Cell177, 1888–1902.e21 (2019).<p/>
+7. Edsgärd, D., Johnsson, P., & Sandberg, R. (2018). Identification of spatial expression trends in single-cell gene expression data. Nature Methods, 15(5), 339–342. doi:10.1038/nmeth.4634<p/>
+8. Korsunsky I., Millard N., Fan J., Slowikowski K., Zhang F., Wei K., Baglaenko Y., Brenner M., Loh P.R., Raychaudhuri S. Fast, sensitive and accurate integration of single-cell data with Harmony. Nat. Methods. 2019;16:1289-1296<p/>
+9. Love, M. L., Huber, W. & Anders, S., Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology 15, number 550 (2014).<p/>
+10. Robinson M D, McCarthy D J, Smyth G K. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data[J]. Bioinformatics, 2010, 26(1): 139-140.<p/>
+11. Yu, D., Huber, W. & Vitek, O., Shrinkage estimation of dispersion in Negative Binomial models for RNA-seq experiments with small sample size. Bioinformatics 29, 1275–1282 (2013).<p/>
+12. Robinson, M. D. & Smyth, G. K. Small-sample estimation of negative binomial dispersion, with applications to SAGE data. Biostatistics 9, 321–332 (2007).<p/>
+13. Guangchuang Yu, Li-Gen Wang, Yanyan Han, Qing-Yu He. clusterProfiler: an R package for comparing biological themes among gene clusters. OMICS: A Journal of Integrative Biology. 2012, 16(5):284-287.<p/>
+14. Kanehisa M, Goto S. KEGG: kyoto encyclopedia of genes and genomes[J]. Nucleic acids research, 2000, 28(1): 27-30.<p/>
+15. G Yu, QY He*. ReactomePA: an R/Bioconductor package for reactome pathway analysis and visualization. Molecular BioSystems 2016, 12(2):477-479<p/>
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+</body>
+</html>
