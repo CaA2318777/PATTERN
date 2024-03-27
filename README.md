@@ -5,8 +5,6 @@ This repository is used to store the publicly available code covered in Nature C
 
 We disclose here the code used to process photoacoustic signal artefacts, data hand-labeled by human experts, and pre-trained models for mouse HP/AI/BLA.We also make public the code for a spatial transcriptomics analysis process that incorporates PATTERN. You can find the corresponding contents in the two subfolders.
 
-For the code of the PATTERN-based sampling phase and the code of the 3D reconstruction process, we are happy to share with interested readers the source code that we have written based on matlab. Unfortunately, these are complex and voluminous, and are currently stored in the lab servers, making it difficult to upload them directly to github.
-
 Raw data supporting the findings of the present study are provided as online materials for this paper. Processed photoacoustic imaging data generated in this study have been deposited in the figshare database under the accession link https://figshare.com/s/c0f6139f729b97b21028.
 
-If any of our readers are interested, please feel free to contact us directly by e-mail using the author information in the article.
+For the code of the PATTERN-based imaging and 3D reconstruction process, raw data of photoacoustic and other imaging modality, we are happy to share with interested readers. Unfortunately, it is so complex and voluminous making it difficult to upload. They are currently stored in our lab servers, If any of our readers are interested, please feel free to contact us directly by e-mail using the author information in the article.
